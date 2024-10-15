@@ -1,3 +1,7 @@
+###>>> Custome rules ###
+.idea/
+.env
+### Custome rules <<<###
 
 ###> symfony/framework-bundle ###
 /.env.local
