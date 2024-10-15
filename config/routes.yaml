@@ -3,3 +3,7 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+currency_converter_bundle:
+    resource: '@CurrencyConverterBundle/Resources/config/routes.yaml'
+    type: yaml
