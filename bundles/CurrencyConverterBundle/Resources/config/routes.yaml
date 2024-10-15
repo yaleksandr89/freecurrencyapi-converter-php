@@ -1,0 +1,34 @@
+dashboard_currencies_action:
+  path: /currencies
+  controller: currency_converter_bundle.action.dashboard
+  methods: [ GET ]
+
+list_currencies_action:
+  path: /currencies/list
+  controller: currency_converter_bundle.action.list
+  methods: [ GET ]
+
+add_currency_form_action:
+  path: /currencies/add
+  controller: currency_converter_bundle.action.add
+  methods: [GET]
+
+add_currency_action:
+  path: /currencies/add
+  controller: currency_converter_bundle.action.add
+  methods: [POST]
+
+edit_currency_form_action:
+  path: /currencies/edit
+  controller: currency_converter_bundle.action.edit
+  methods: [GET]
+
+edit_currency_action:
+  path: /currencies/edit
+  controller: currency_converter_bundle.action.edit
+  methods: [POST]
+
+converter_action:
+  path: /currencies/convert
+  controller: currency_converter_bundle.action.convert
+  methods: [ POST ]

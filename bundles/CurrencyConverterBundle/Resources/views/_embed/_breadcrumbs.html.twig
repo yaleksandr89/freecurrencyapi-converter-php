@@ -1,0 +1,15 @@
+{% trans_default_domain 'CurrencyConverterBundle' %}
+
+<div class="d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center">
+        <a href="{{ actionUrl }}" class="font-weight-bold text-primary">{{ sectionTitle }}</a>
+        <div class="ml-2 mr-2">/</div>
+        <h6 class="m-0 font-weight-bold text-primary">
+            {% if title_entity is defined and title_entity != null %}
+                {{ title_entity }}
+            {% else %}
+                {{ 'currencies.new'|trans }}
+            {% endif %}
+        </h6>
+    </div>
+</div>

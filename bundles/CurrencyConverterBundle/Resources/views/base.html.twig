@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>{% block title %}Test task{% endblock %}</title>
+    <link rel="shortcut icon" href="{{ asset('bundles/currencyconverter/images/favicon.ico') }}">
+    <meta name="keywords" content="{% block page_keywords %}currency, convert, api{% endblock %}">
+    <meta name="description" content="{% block page_description %}currency, convert, api{% endblock %}">
+    <link rel="stylesheet" href="{{ asset('bundles/currencyconverter/css/app.css') }}">
+    {% block local_css %}{% endblock %}
+</head>
+<body>
+    {% block layout_body %}{% endblock %}
+    <script type="module" src="{{ asset('bundles/currencyconverter/js/app.js') }}"></script>
+    {% block local_js %}{% endblock %}
+</body>
+</html>

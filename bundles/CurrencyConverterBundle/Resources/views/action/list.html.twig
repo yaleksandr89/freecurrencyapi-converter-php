@@ -1,0 +1,43 @@
+{% extends '@CurrencyConverter/layout/layout_main.html.twig' %}
+{% trans_default_domain 'CurrencyConverterBundle' %}
+
+{% block title_detailed %}{{ 'currencies.list'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            {% include '@CurrencyConverter/_embed/_header_action.html.twig' with
+                {
+                    'sectionTitle': 'currencies.list'|trans,
+                    'actionUrl': path('add_currency_form_action')
+                }
+            %}
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="main_table">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Title</th>
+                        <th>Slug</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+{#{% for category in categories %}#}
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>
+                                <a href="edit" class="btn btn-outline-info">Edit</a>
+                            </td>
+                        </tr>
+{#{% endfor %}#}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

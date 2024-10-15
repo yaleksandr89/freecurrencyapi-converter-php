@@ -1,0 +1,26 @@
+header_menu.dashboard: Dashboard
+dashboard: Dashboard
+copyright: Copyright
+add: Add
+delete: Delete
+currencies:
+  label: Currencies
+  new: New currency
+  list: List of currencies
+  add: Add currency
+  edit: Edit currency
+  form:
+    title:
+      label: Title
+      placeholder: Enter a title
+      not_blank: Please enter a title
+    code:
+      label: Currency Code
+      placeholder: Enter currency code (e.g., USD)
+      not_blank: Please enter a currency code
+    rate:
+      label: Exchange Rate
+      placeholder: Enter exchange rate
+      not_blank: Please enter an exchange rate
+    submit:
+      label: Save changes

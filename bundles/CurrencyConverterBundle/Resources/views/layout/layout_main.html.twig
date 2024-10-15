@@ -1,0 +1,31 @@
+{% extends '@CurrencyConverter/base.html.twig' %}
+{% trans_default_domain 'CurrencyConverterBundle' %}
+
+{% block title %}
+    Test task - {% block title_detailed %} | Root{% endblock %}
+{% endblock %}
+
+{% block layout_body %}
+    <div id="wrapper">
+         {{ include('@CurrencyConverter/_embed/_sidebar.html.twig') }}
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                {{ include('@CurrencyConverter/_embed/_topbar.html.twig') }}
+                <div class="container-fluid">
+                    {% include '@CurrencyConverter/_embed/_flash_message.html.twig' %}
+                    {% block body %}{% endblock %}
+                </div>
+            </div>
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>{{ 'copyright'|trans }} &copy; y.aleksandr89</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+{% endblock %}
