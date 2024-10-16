@@ -47,4 +47,11 @@ abstract class BaseAction extends AbstractController
             locale: $locale
         );
     }
+
+    public function getCurrentLocale(): string
+    {
+        return $this
+            ->translator
+            ->getLocale();
+    }
 }

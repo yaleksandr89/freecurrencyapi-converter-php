@@ -55,4 +55,19 @@ class CurrencyRepository extends ServiceEntityRepository
             }
         }
     }
+
+    /**
+     * Получить последние обновленные валюты (для панели управления)
+     *
+     * @param  int  $limit  Количество валют для получения
+     * @return Currency[]
+     */
+    public function findRecentUpdatedCurrencies(int $limit = 10): array
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.updatedAt', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
 }

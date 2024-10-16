@@ -5,6 +5,7 @@ namespace Bundles\CurrencyConverterBundle\Entity;
 namespace Bundles\CurrencyConverterBundle\Entity;
 
 
+use AllowDynamicProperties;
 use Bundles\CurrencyConverterBundle\Repository\CurrencyRepository;
 use DateTime;
 use DateTimeInterface;
@@ -16,6 +17,7 @@ use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Table;
 
 #[
+    AllowDynamicProperties,
     Table(name: 'currencies'),
     Entity(repositoryClass: CurrencyRepository::class)
 ]
