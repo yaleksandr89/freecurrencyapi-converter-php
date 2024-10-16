@@ -10,9 +10,7 @@ class DashboardAction extends BaseAction
 {
     public function __invoke(): Response
     {
-        $lastUpdatedCurrencies = $this
-            ->currencyRepository
-            ->findRecentUpdatedCurrencies(12);
+        $lastUpdatedCurrencies = $this->currencyRepository->findAll();
 
         foreach ($lastUpdatedCurrencies as $currency) {
             $locale = $this->getCurrentLocale();

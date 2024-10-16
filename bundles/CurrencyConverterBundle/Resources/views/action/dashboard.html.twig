@@ -30,8 +30,7 @@
                             </div>
                             <div class="card-footer">
                                 <div class="text-xs font-weight-bold text-gray-500 text-right">
-{#                                    Обновлено: {{ currency.updatedAt|date('H:i:s d.m.Y') }}#}
-                                    Обновлено: <span class="text-primary">{{ currency.formattedUpdatedAt }}</span>
+                                    {{ 'currencies.actions.dashboard.title_update_at'|trans }}: <span class="text-primary">{{ currency.formattedUpdatedAt }}</span>
                                 </div>
                             </div>
                         </div>

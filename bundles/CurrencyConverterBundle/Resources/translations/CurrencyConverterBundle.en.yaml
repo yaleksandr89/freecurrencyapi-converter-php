@@ -22,6 +22,8 @@ currencies:
     submit:
       label: Save changes
   actions:
+    dashboard:
+      title_update_at: Update at
     list:
       empty: No currencies found
       id: Id
