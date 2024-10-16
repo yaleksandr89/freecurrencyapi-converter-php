@@ -1,13 +1,10 @@
 header_menu.dashboard: Dashboard
 dashboard: Dashboard
 copyright: Copyright
-add: Add
 delete: Delete
 currencies:
   label: Currencies
-  new: New currency
   list: List of currencies
-  add: Add currency
   edit: Edit currency
   form:
     title:

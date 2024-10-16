@@ -1,13 +1,10 @@
 header_menu.dashboard: Панель управления
 dashboard: Панель управления
 copyright: Все права защищены
-add: Добавить
 delete: Удалить
 currencies:
   label: Валюты
-  new: Новая валюта
   list: Список валют
-  add: Добавить валюту
   edit: Изменить валюту
   form:
     title:
