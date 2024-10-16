@@ -17,29 +17,29 @@
                 <table class="table table-bordered" id="main_table">
                     <thead>
                     <tr class="text-center">
-                        <th>{{ 'currencies.actions.list.id'|trans }}</th>
-                        <th>{{ 'currencies.actions.list.code'|trans }}</th>
-                        <th>{{ 'currencies.actions.list.title'|trans }}</th>
-                        <th>{{ 'currencies.actions.list.name_plural'|trans }}</th>
-                        <th>{{ 'currencies.actions.list.symbol'|trans }}</th>
-                        <th>{{ 'currencies.actions.list.rate'|trans }}</th>
-                        <th>{{ 'currencies.actions.list.created_at'|trans }}</th>
-                        <th>{{ 'currencies.actions.list.updated_at'|trans }}</th>
-                        <th>{{ 'currencies.actions.list.actions'|trans }}</th>
+                        <th class="align-middle">{{ 'currencies.actions.list.id'|trans }}</th>
+                        <th class="align-middle">{{ 'currencies.actions.list.code'|trans }}</th>
+                        <th class="align-middle">{{ 'currencies.actions.list.title'|trans }}</th>
+                        <th class="align-middle">{{ 'currencies.actions.list.name_plural'|trans }}</th>
+                        <th class="align-middle">{{ 'currencies.actions.list.symbol'|trans }}</th>
+                        <th class="align-middle">{{ 'currencies.actions.list.rate'|trans }}</th>
+                        <th class="align-middle">{{ 'currencies.actions.list.created_at'|trans }}</th>
+                        <th class="align-middle">{{ 'currencies.actions.list.updated_at'|trans }}</th>
+                        <th class="align-middle">{{ 'currencies.actions.list.actions'|trans }}</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for currency in currencies %}
-                        <tr>
-                            <td>{{ currency.id }}</td>
-                            <td><code>{{ currency.code }}</code></td>
-                            <td>{{ currency.title }}</td>
-                            <td>{{ currency.namePlural }}</td>
-                            <td><code>{{ currency.symbol }}</code></td>
-                            <td>{{ currency.rate }}</td>
-                            <td>{{ currency.createdAt|date('H:i:s d.m.Y') }}</td>
-                            <td>{{ currency.updatedAt|date('H:i:s d.m.Y') }}</td>
-                            <td>
+                        <tr {% if currency.code == 'USD' %}class="table-secondary" {% endif %}>
+                            <td class="align-middle">{{ currency.id }}</td>
+                            <td class="align-middle"><code>{{ currency.code }}</code></td>
+                            <td class="align-middle">{{ currency.title }}</td>
+                            <td class="align-middle">{{ currency.namePlural }}</td>
+                            <td class="align-middle"><code>{{ currency.symbol }}</code></td>
+                            <td class="align-middle">{{ currency.rate }}</td>
+                            <td class="align-middle">{{ currency.createdAt|date('H:i:s d.m.Y') }}</td>
+                            <td class="align-middle">{{ currency.updatedAt|date('H:i:s d.m.Y') }}</td>
+                            <td class="align-middle">
                                 <div class="button-group">
                                     <a href="{{ path('edit_currency_form_action', { id: currency.id }) }}"
                                        class="btn btn-sm btn-outline-dark">

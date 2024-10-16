@@ -21,15 +21,20 @@ class UpdateAction extends BaseAction
      */
     public function __invoke(): RedirectResponse
     {
-        // Загружаем данные с API
+        // Получаем данные о валютах (названия, символы и т.д.)
         $currenciesData = $this
             ->currencyApiService
             ->getAllCurrencies();
 
+        // Получаем курсы валют относительно USD
+        $currencyRates = $this
+            ->currencyApiService
+            ->getCurrencyRates('USD');
+
         // Сохраняем или обновляем валюты через репозиторий
         $this
             ->currencyRepository
-            ->saveOrUpdateCurrencies($currenciesData);
+            ->saveOrUpdateCurrencies($currenciesData, $currencyRates);
 
         return $this
             ->redirectToRoute('list_currencies_action');

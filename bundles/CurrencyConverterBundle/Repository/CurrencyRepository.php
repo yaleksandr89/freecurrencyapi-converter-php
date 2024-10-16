@@ -35,17 +35,18 @@ class CurrencyRepository extends ServiceEntityRepository
     }
 
     // Сохраняет или обновляет валюты, полученные из API
-    public function saveOrUpdateCurrencies(array $currenciesData): void
+    public function saveOrUpdateCurrencies(array $currenciesData, array $currencyRates): void
     {
         /** @var Currency $currencyData */
         foreach ($currenciesData as $code => $currencyData) {
+            $rate = $currencyRates[$code] ?? null;
             $currency = $this->findByCode($code);
 
             if (!$currency) {
                 $currency = new Currency();
-                $currency->setRate(1.0);
+                $currency->setRate($rate);
             } else {
-                $currency->updateRate(1.0);
+                $currency->updateRate($rate);
             }
 
             $currency->setTitle($currencyData['name']);
