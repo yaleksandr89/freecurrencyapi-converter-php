@@ -32,5 +32,8 @@ currencies:
       rate: Rate
       created_at: Updated At
       updated_at: Created At
+      actions: Actions
+      edit: Edit
+      delete: Delete
     update_currencies:
       load_or_update: Download / Update Currencies

@@ -22,8 +22,9 @@
                         <th>{{ 'currencies.actions.list.title'|trans }}</th>
                         <th>{{ 'currencies.actions.list.code'|trans }}</th>
                         <th>{{ 'currencies.actions.list.rate'|trans }}</th>
-                        <th>{{ 'currencies.actions.list.updated_at'|trans }}</th>
                         <th>{{ 'currencies.actions.list.created_at'|trans }}</th>
+                        <th>{{ 'currencies.actions.list.updated_at'|trans }}</th>
+                        <th>{{ 'currencies.actions.list.actions'|trans }}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -33,12 +34,19 @@
                             <td>{{ currency.title }}</td>
                             <td>{{ currency.code }}</td>
                             <td>{{ currency.rate }}</td>
-                            <td>{{ currency.updatedAt|date('Y-m-d H:i:s') }}</td>
-                            <td>{{ currency.createdAt|date('Y-m-d H:i:s') }}</td>
+                            <td>{{ currency.createdAt|date('H:i:s d.m.Y') }}</td>
+                            <td>{{ currency.updatedAt|date('H:i:s d.m.Y') }}</td>
                             <td>
-                                <a href="{{ path('edit_currency_form_action', { id: currency.id }) }}" class="btn btn-outline-info">
-                                    Edit
-                                </a>
+                                <div class="button-group">
+                                    <a href="{{ path('edit_currency_form_action', { id: currency.id }) }}"
+                                       class="btn btn-sm btn-outline-dark">
+                                        {{ 'currencies.actions.list.edit'|trans }}
+                                    </a>
+                                    <a href="#"
+                                       class="btn btn-sm btn-outline-danger">
+                                        {{ 'currencies.actions.list.delete'|trans }}
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                     {% else %}

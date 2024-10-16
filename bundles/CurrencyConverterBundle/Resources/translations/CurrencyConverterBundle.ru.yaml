@@ -28,9 +28,12 @@ currencies:
       empty: Валюты не найдены
       id: Ид
       title: Название
-      code: Код валюты
-      rate: Курс обмена
+      code: Код
+      rate: Курс
       created_at: Дата создания
       updated_at: Дата обновления
+      actions: Действия
+      edit: Изменить
+      delete: Удалить
     update_currencies:
       load_or_update: Загрузить / Обновить валюты

@@ -8,9 +8,8 @@ class ListAction extends BaseAction
 {
     public function __invoke(): Response
     {
-        // Вывод списка валют
         return $this->render('@CurrencyConverter/action/list.html.twig', [
-            'currencies' => $this->currencyRepository->findAll(),
+            'currencies' => $this->currencyRepository->findBy([], ['id' => 'ASC']),
         ]);
     }
 }
