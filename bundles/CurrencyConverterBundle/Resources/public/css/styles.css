@@ -107,6 +107,27 @@ select.form-control[multiple], select.form-control[size] {
     gap: 10px;
 }
 
+.base-currency {
+    display: inline-flex;
+    align-items: center;
+    background-color: #2a3042;
+    background-image: linear-gradient(180deg, #2e3343 10%, #2a3042 100%);
+    color: #ffffff;
+    border-radius: 0.35rem;
+    padding: 6px 12px;
+    box-shadow: 0 0.125rem 0.2rem rgba(0, 0, 0, 0.1);
+    cursor: default;
+    font-size: 16px;
+    font-weight: 400;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.base-currency .icon {
+    margin-right: 10px;
+}
+
+
 @media (max-width: 768px) {
     .button-group {
         flex-direction: column;

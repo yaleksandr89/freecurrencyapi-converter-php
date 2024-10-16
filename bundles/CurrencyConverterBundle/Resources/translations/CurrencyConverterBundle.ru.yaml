@@ -3,6 +3,7 @@ header_menu:
 dashboard: Панель управления
 copyright: Все права защищены
 delete: Удалить
+base_currency: является базовой валютой
 
 currencies:
   label: Валюты
