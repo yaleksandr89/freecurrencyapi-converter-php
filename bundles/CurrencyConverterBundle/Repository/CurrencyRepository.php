@@ -42,17 +42,17 @@ class CurrencyRepository extends ServiceEntityRepository
             $currency = $this->findByCode($code);
 
             if (!$currency) {
-                // Если валюта не найдена — создаем новую
-                $currency = new Currency(
-                    $currencyData['name'],
-                    $currencyData['code'],
-                    1.0 // Курс будет обновляться отдельно
-                );
-                $this->saveCurrency($currency);
+                $currency = new Currency();
+                $currency->setRate(1.0);
             } else {
-                // Если валюта найдена — обновляем курс
-                $this->updateCurrencyRate($currency, 1.0);
+                $currency->updateRate(1.0);
             }
+
+            $currency->setTitle($currencyData['name']);
+            $currency->setCode($currencyData['code']);
+            $currency->setSymbol($currencyData['symbol']);
+            $currency->setNamePlural($currencyData['name_plural']);
+            $this->saveCurrency($currency);
         }
     }
 

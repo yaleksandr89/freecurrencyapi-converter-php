@@ -1,7 +1,9 @@
-header_menu.dashboard: Dashboard
+header_menu:
+  dashboard: Dashboard
 dashboard: Dashboard
 copyright: Copyright
 delete: Delete
+
 currencies:
   label: Currencies
   list: List of currencies
@@ -29,9 +31,11 @@ currencies:
       id: Id
       title: Title
       code: Code
+      symbol: Symbol
+      name_plural: Name Plural
       rate: Rate
-      created_at: Updated At
-      updated_at: Created At
+      created_at: Created At
+      updated_at: Updated At
       actions: Actions
       edit: Edit
       delete: Delete

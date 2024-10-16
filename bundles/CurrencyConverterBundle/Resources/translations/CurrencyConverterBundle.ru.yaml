@@ -1,7 +1,9 @@
-header_menu.dashboard: Панель управления
+header_menu:
+  dashboard: Панель управления
 dashboard: Панель управления
 copyright: Все права защищены
 delete: Удалить
+
 currencies:
   label: Валюты
   list: Список валют
@@ -25,14 +27,16 @@ currencies:
     dashboard:
       title_update_at: Дата обновления
     list:
-      empty: Валюты не найдены
+      empty: Валюты не найдены
       id: Ид
       title: Название
       code: Код
+      symbol: Символ
+      name_plural: Множественное название
       rate: Курс
       created_at: Дата создания
       updated_at: Дата обновления
-      actions: Действия
+      actions: Действия
       edit: Изменить
       delete: Удалить
     update_currencies:

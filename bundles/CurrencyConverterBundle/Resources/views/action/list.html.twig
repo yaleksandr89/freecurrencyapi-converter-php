@@ -19,8 +19,10 @@
                     <thead>
                     <tr class="text-center">
                         <th>{{ 'currencies.actions.list.id'|trans }}</th>
-                        <th>{{ 'currencies.actions.list.title'|trans }}</th>
                         <th>{{ 'currencies.actions.list.code'|trans }}</th>
+                        <th>{{ 'currencies.actions.list.title'|trans }}</th>
+                        <th>{{ 'currencies.actions.list.name_plural'|trans }}</th>
+                        <th>{{ 'currencies.actions.list.symbol'|trans }}</th>
                         <th>{{ 'currencies.actions.list.rate'|trans }}</th>
                         <th>{{ 'currencies.actions.list.created_at'|trans }}</th>
                         <th>{{ 'currencies.actions.list.updated_at'|trans }}</th>
@@ -31,8 +33,10 @@
                     {% for currency in currencies %}
                         <tr>
                             <td>{{ currency.id }}</td>
+                            <td><code>{{ currency.code }}</code></td>
                             <td>{{ currency.title }}</td>
-                            <td>{{ currency.code }}</td>
+                            <td>{{ currency.namePlural }}</td>
+                            <td><code>{{ currency.symbol }}</code></td>
                             <td>{{ currency.rate }}</td>
                             <td>{{ currency.createdAt|date('H:i:s d.m.Y') }}</td>
                             <td>{{ currency.updatedAt|date('H:i:s d.m.Y') }}</td>
@@ -51,7 +55,7 @@
                         </tr>
                     {% else %}
                         <tr>
-                            <td colspan="7" class="text-center">
+                            <td colspan="12" class="text-center">
                                 <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
                                     {{ 'currencies.actions.list.empty'|trans }}
                                 </div>

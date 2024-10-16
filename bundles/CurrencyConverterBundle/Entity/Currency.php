@@ -1,9 +1,8 @@
 <?php
 
-namespace Bundles\CurrencyConverterBundle\Entity;
+declare(strict_types=1);
 
 namespace Bundles\CurrencyConverterBundle\Entity;
-
 
 use AllowDynamicProperties;
 use Bundles\CurrencyConverterBundle\Repository\CurrencyRepository;
@@ -32,20 +31,23 @@ class Currency
     #[Column(type: Types::STRING, length: 10, unique: true)]
     private string $code;
 
+    #[Column(type: Types::STRING, length: 10)]
+    private string $symbol;
+
+    #[Column(type: Types::STRING, length: 255)]
+    private string $namePlural;
+
     #[Column(type: Types::FLOAT)]
     private float $rate;
 
     #[Column(type: Types::DATETIME_MUTABLE)]
-    private \DateTimeInterface $createdAt;
+    private DateTimeInterface $createdAt;
 
     #[Column(type: Types::DATETIME_MUTABLE)]
-    private \DateTimeInterface $updatedAt;
+    private DateTimeInterface $updatedAt;
 
-    public function __construct(string $title, string $code, float $rate)
+    public function __construct()
     {
-        $this->title = $title;
-        $this->code = $code;
-        $this->rate = $rate;
         $this->createdAt = new DateTime();
         $this->updatedAt = new DateTime();
     }
@@ -60,14 +62,55 @@ class Currency
         return $this->title;
     }
 
+    public function setTitle(string $title): void
+    {
+        $this->title = $title;
+    }
+
     public function getCode(): string
     {
         return $this->code;
     }
 
+    public function setCode(string $code): void
+    {
+        $this->code = $code;
+    }
+
+    public function getSymbol(): string
+    {
+        return $this->symbol;
+    }
+
+    public function setSymbol(string $symbol): void
+    {
+        $this->symbol = $symbol;
+    }
+
+    public function getNamePlural(): string
+    {
+        return $this->namePlural;
+    }
+
+    public function setNamePlural(string $namePlural): void
+    {
+        $this->namePlural = $namePlural;
+    }
+
     public function getRate(): float
     {
         return $this->rate;
+    }
+
+    public function setRate(float $rate): void
+    {
+        $this->rate = $rate;
+    }
+
+    public function updateRate(float $rate): void
+    {
+        $this->rate = $rate;
+        $this->updatedAt = new DateTime();
     }
 
     public function getCreatedAt(): DateTimeInterface
@@ -78,11 +121,5 @@ class Currency
     public function getUpdatedAt(): DateTimeInterface
     {
         return $this->updatedAt;
-    }
-
-    public function updateRate(float $rate): void
-    {
-        $this->rate = $rate;
-        $this->updatedAt = new DateTime();
     }
 }
