@@ -15,14 +15,6 @@ class CurrencyConverterExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container): void
     {
-        // Конфигурируем бандл
-        $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $configs);
-
-        $container->setParameter('currency_converter.api_key', $config['api_key']);
-        $container->setParameter('currency_converter.api_url', $config['api_url']);
-
-        // Загружаем конфигурацию сервисов
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yaml');
     }

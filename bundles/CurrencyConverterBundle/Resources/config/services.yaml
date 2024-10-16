@@ -1,11 +1,7 @@
 parameters:
   currency_converter_bundle.translation_domain: CurrencyConverterBundle
-  # Class actions:
-  currency_converter_bundle.action.dashboard.class: Bundles\CurrencyConverterBundle\Action\DashboardAction
-  currency_converter_bundle.action.list.class: Bundles\CurrencyConverterBundle\Action\ListAction
-  currency_converter_bundle.action.add.class: Bundles\CurrencyConverterBundle\Action\AddAction
-  currency_converter_bundle.action.edit.class: Bundles\CurrencyConverterBundle\Action\EditAction
-  currency_converter_bundle.action.convert.class: Bundles\CurrencyConverterBundle\Action\ConvertAction
+  currency_converter.api_key: '%env(default::CURRENCY_CONVERTER_API_KEY)%'
+  currency_converter.api_url: '%env(default::CURRENCY_CONVERTER_API_URL)%'
 
 services:
   _defaults:
@@ -15,12 +11,24 @@ services:
 
   # Actions
   currency_converter_bundle.action.dashboard:
-    class: '%currency_converter_bundle.action.dashboard.class%'
+    class: Bundles\CurrencyConverterBundle\Action\DashboardAction
   currency_converter_bundle.action.list:
-    class: '%currency_converter_bundle.action.list.class%'
+    class: Bundles\CurrencyConverterBundle\Action\ListAction
   currency_converter_bundle.action.add:
-    class: '%currency_converter_bundle.action.add.class%'
+    class: Bundles\CurrencyConverterBundle\Action\AddAction
   currency_converter_bundle.action.edit:
-    class: '%currency_converter_bundle.action.edit.class%'
+    class: Bundles\CurrencyConverterBundle\Action\EditAction
   currency_converter_bundle.action.convert:
-    class: '%currency_converter_bundle.action.convert.class%'
+    class: Bundles\CurrencyConverterBundle\Action\ConvertAction
+
+  # Services
+  Bundles\CurrencyConverterBundle\Service\CurrencyApiService:
+    arguments:
+      - '@http_client'
+      - '@logger'
+      - '%currency_converter.api_key%'
+      - '%currency_converter.api_url%'
+  # Или если задавать имя сервиса (например: currency_converter_bundle.service.currency_api),
+  # то нужно прокинуть alias (пример ниже):
+  # Bundles\CurrencyConverterBundle\Service\CurrencyApiService:
+  #   alias: currency_converter_bundle.service.currency_api
