@@ -4,9 +4,11 @@ dashboard_currencies_action:
   methods: [ GET ]
 
 list_currencies_action:
-  path: /currencies/list
+  path: /currencies/list/{page}
   controller: currency_converter_bundle.action.list
   methods: [ GET ]
+  defaults:
+    page: 1
 
 edit_currency_form_action:
   path: /currencies/edit

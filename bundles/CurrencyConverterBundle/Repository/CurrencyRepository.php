@@ -70,4 +70,23 @@ class CurrencyRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    // Выборка валют из БД с учетом параметров пагинации
+    public function findPaginatedCurrencies(int $offset, int $limit): array
+    {
+        return $this->createQueryBuilder('c')
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function countCurrencies(): int
+    {
+        return (int)$this->createQueryBuilder('c')
+            ->select('COUNT(c.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

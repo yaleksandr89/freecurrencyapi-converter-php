@@ -10,8 +10,7 @@
                 {
                     'sectionTitle': 'currencies.list'|trans,
                     'show_btn_update': true
-                }
-            %}
+                } %}
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -65,6 +64,13 @@
                     </tbody>
                 </table>
             </div>
+            {% include '@CurrencyConverter/_embed/_pagination.html.twig' with
+                {
+                    'routeName': 'list_currencies_action',
+                    'currentPage': currentPage,
+                    'totalPages': totalPages
+                }
+            %}
         </div>
     </div>
 {% endblock %}
