@@ -48,15 +48,39 @@ readonly class CurrencyApiService
                 'apikey' => $this->apiKey,
             ],
         ]);
+
         //$this->log('info', 'Response received from FreeCurrencyAPI', ['status_code' => $response->getStatusCode()]);
 
         return $response->toArray();
+    }
+
+    /**
+     * @throws TransportExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws DecodingExceptionInterface
+     * @throws ClientExceptionInterface
+     */
+    public function getAllCurrencies(): array
+    {
+        $endpoint = $this->apiUrl . '/currencies';
+
+        $response = $this->client->request('GET', $endpoint, [
+            'query' => [
+                'apikey' => $this->apiKey,
+            ],
+        ]);
+
+        return $response->toArray()['data'];
     }
 
     private function log(string $type = 'info', string $message, array $context = []): void
     {
         $this
             ->logger
-            ->$type($message, $context);
+            ->$type(
+                $message,
+                $context
+            );
     }
 }

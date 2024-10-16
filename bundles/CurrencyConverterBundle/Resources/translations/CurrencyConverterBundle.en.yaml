@@ -24,3 +24,14 @@ currencies:
       not_blank: Please enter an exchange rate
     submit:
       label: Save changes
+  actions:
+    list:
+      empty: No currencies found
+      id: Id
+      title: Title
+      code: Code
+      rate: Rate
+      created_at: Updated At
+      updated_at: Created At
+    update_currencies:
+      load_or_update: Download / Update Currencies

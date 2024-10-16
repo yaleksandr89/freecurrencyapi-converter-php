@@ -9,7 +9,8 @@
             {% include '@CurrencyConverter/_embed/_header_action.html.twig' with
                 {
                     'sectionTitle': 'currencies.list'|trans,
-                    'actionUrl': path('add_currency_form_action')
+                    'actionUrl': path('add_currency_form_action'),
+                    'show_btn_update': true
                 }
             %}
         </div>
@@ -17,24 +18,39 @@
             <div class="table-responsive">
                 <table class="table table-bordered" id="main_table">
                     <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Title</th>
-                        <th>Slug</th>
-                        <th></th>
+                    <tr class="text-center">
+                        <th>{{ 'currencies.actions.list.id'|trans }}</th>
+                        <th>{{ 'currencies.actions.list.title'|trans }}</th>
+                        <th>{{ 'currencies.actions.list.code'|trans }}</th>
+                        <th>{{ 'currencies.actions.list.rate'|trans }}</th>
+                        <th>{{ 'currencies.actions.list.updated_at'|trans }}</th>
+                        <th>{{ 'currencies.actions.list.created_at'|trans }}</th>
                     </tr>
                     </thead>
                     <tbody>
-{#{% for category in categories %}#}
+                    {% for currency in currencies %}
                         <tr>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
+                            <td>{{ currency.id }}</td>
+                            <td>{{ currency.title }}</td>
+                            <td>{{ currency.code }}</td>
+                            <td>{{ currency.rate }}</td>
+                            <td>{{ currency.updatedAt|date('Y-m-d H:i:s') }}</td>
+                            <td>{{ currency.createdAt|date('Y-m-d H:i:s') }}</td>
                             <td>
-                                <a href="edit" class="btn btn-outline-info">Edit</a>
+                                <a href="{{ path('edit_currency_form_action', { id: currency.id }) }}" class="btn btn-outline-info">
+                                    Edit
+                                </a>
                             </td>
                         </tr>
-{#{% endfor %}#}
+                    {% else %}
+                        <tr>
+                            <td colspan="7" class="text-center">
+                                <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+                                    {{ 'currencies.actions.list.empty'|trans }}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>

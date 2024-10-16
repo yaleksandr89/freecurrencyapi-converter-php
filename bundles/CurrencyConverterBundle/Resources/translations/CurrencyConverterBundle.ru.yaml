@@ -24,3 +24,14 @@ currencies:
       not_blank: Пожалуйста, введите курс обмена
     submit:
       label: Сохранить изменения
+  actions:
+    list:
+      empty: Валюты не найдены
+      id: Ид
+      title: Название
+      code: Код валюты
+      rate: Курс обмена
+      created_at: Дата создания
+      updated_at: Дата обновления
+    update_currencies:
+      load_or_update: Загрузить / Обновить валюты
