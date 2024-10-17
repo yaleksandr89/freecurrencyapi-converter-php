@@ -11,7 +11,7 @@ $(document).ready(function () {
     if (currentUrl === '/currencies') {
         // Добавляем класс active к пункту "dashboard"
         $('#dashboard').closest('li').addClass('active');
-    } else if (currentUrl === '/currencies/list' || currentUrl === '/currencies/add') {
+    } else if (currentUrl.startsWith('/currencies/list') || currentUrl === '/currencies/add') {
         // Убираем класс collapsed и добавляем show для раскрытия меню
         $('#currencies').removeClass('collapsed');
         $('#collapseCurrencies').addClass('show');
@@ -20,10 +20,12 @@ $(document).ready(function () {
         $('#currencies').closest('li').addClass('active');
 
         // Дополнительно можно выделить активный подпункт
-        if (currentUrl === '/currencies/list') {
+        if (/^\/currencies\/list(\/\d+)?$/.test(currentUrl)) {
+            // Если URL соответствует /currencies/list или /currencies/list/{page}
             $('a[href="/currencies/list"]').addClass('active');
         } else if (currentUrl === '/currencies/add') {
             $('a[href="/currencies/add"]').addClass('active');
         }
     }
 });
+
