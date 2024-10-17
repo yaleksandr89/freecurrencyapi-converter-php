@@ -2,6 +2,8 @@ parameters:
   currency_converter_bundle.translation_domain: CurrencyConverterBundle
   currency_converter.api_key: '%env(default::CURRENCY_CONVERTER_API_KEY)%'
   currency_converter.api_url: '%env(default::CURRENCY_CONVERTER_API_URL)%'
+  env(USE_MOCK_DATA): false
+  currency_converter.use_mock_data: '%env(bool:default::USE_MOCK_DATA)%'
 
 services:
   _defaults:
@@ -32,6 +34,7 @@ services:
       - '@logger'
       - '%currency_converter.api_key%'
       - '%currency_converter.api_url%'
+      - '%currency_converter.use_mock_data%'
   Bundles\CurrencyConverterBundle\Repository\CurrencyRepository:
     arguments:
       - '@doctrine'

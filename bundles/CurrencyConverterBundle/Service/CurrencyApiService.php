@@ -17,7 +17,8 @@ readonly class CurrencyApiService
         private HttpClientInterface $client,
         private LoggerInterface $logger,
         private ?string $apiKey,
-        private ?string $apiUrl
+        private ?string $apiUrl,
+        private bool $useMockData,
     ) {
         self::checkApiKeyAndUrl($this->apiKey, $this->apiUrl);
     }
@@ -49,7 +50,6 @@ readonly class CurrencyApiService
                 'apikey' => $this->apiKey,
             ],
         ]);
-
         //$this->log('info', 'Response received from FreeCurrencyAPI', ['status_code' => $response->getStatusCode()]);
 
         return $response->toArray();
@@ -64,6 +64,10 @@ readonly class CurrencyApiService
      */
     public function getAllCurrencies(): array
     {
+        if ($this->useMockData) {
+            return include dirname(__DIR__) . '/Resources/mocks/received_currencies_17102024.php';
+        }
+
         $endpoint = $this->apiUrl . '/currencies';
 
         $response = $this->client->request('GET', $endpoint, [
@@ -84,6 +88,10 @@ readonly class CurrencyApiService
      */
     public function getCurrencyRates(string $baseCurrency = 'USD'): array
     {
+        if ($this->useMockData) {
+            return include dirname(__DIR__) . '/Resources/mocks/exchange_rate_relative_base_currency_17102024.php';
+        }
+
         $endpoint = $this->apiUrl . '/latest';
 
         $response = $this->client->request('GET', $endpoint, [
