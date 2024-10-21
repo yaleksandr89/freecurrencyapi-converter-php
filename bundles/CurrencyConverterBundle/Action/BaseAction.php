@@ -14,6 +14,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 abstract class BaseAction extends AbstractController
 {
+    protected const LIMIT = 10;
+
     protected TranslatorInterface $translator;
 
     protected CurrencyApiService $currencyApiService;

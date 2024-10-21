@@ -40,8 +40,14 @@ class UpdateAction extends BaseAction
             // Сохраняем или обновляем валюты через репозиторий
             $this->currencyRepository->saveOrUpdateCurrencies($currenciesData, $currencyRates);
 
-            // Получаем все валюты в формате DTO
-            $currenciesDTO = $this->currencyRepository->findAllDTO();
+            // Получаем текущую страницу из параметров запроса
+            $currentPage = (int)$request->request->get('page', 1);
+
+            // Получаем валюты с учетом пагинации
+            $limit = self::LIMIT; // Значение LIMIT, установленное в BaseAction
+            $currenciesDTO = $this->currencyRepository->findDTOPaginatedCurrencies($currentPage, $limit);
+            $totalCurrencies = $this->currencyRepository->countCurrencies();
+
             // Пример: если нужно с форматированными датами
             /** @var CurrencyDTO $currencyDTO */
             $currencyArrayWithDateTime = array_map(
@@ -49,13 +55,16 @@ class UpdateAction extends BaseAction
                 $currenciesDTO
             );
 
-
             return new JsonResponse([
                 'success' => true,
                 'currencies' => $currencyArrayWithDateTime,
+                'totalPages' => ceil($totalCurrencies / $limit),
+                'currentPage' => $currentPage,
             ]);
+
         } catch (Exception $e) {
             $this->logger->error('Internal Server Error', ['method' => __METHOD__, 'message' => $e->getMessage(),]);
+
             return new JsonResponse([
                 'success' => false,
                 'message' => $this->trans('currencies.actions.update_currencies.server_error'),

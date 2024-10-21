@@ -74,10 +74,10 @@ class CurrencyRepository extends ServiceEntityRepository
     }
 
     // Выборка валют из БД с учетом параметров пагинации
-    public function findPaginatedCurrencies(int $offset, int $limit): array
+    public function findPaginatedCurrencies(int $page, int $limit): array
     {
         return $this->createQueryBuilder('c')
-            ->setFirstResult($offset)
+            ->setFirstResult(self::getOffset($page, $limit))
             ->setMaxResults($limit)
             ->orderBy('c.id', 'ASC')
             ->getQuery()
@@ -115,11 +115,16 @@ class CurrencyRepository extends ServiceEntityRepository
 
     public function findAllDTO(): array
     {
-        $currencies = $this->createQueryBuilder('c')
-            ->orderBy('c.id', 'ASC')
-            ->getQuery()
-            ->getResult();
+        return array_map([$this, 'convertToDTO'], $this->findAll());
+    }
 
-        return array_map([$this, 'convertToDTO'], $currencies);
+    public function findDTOPaginatedCurrencies(int $page, int $limit): array
+    {
+        return array_map([$this, 'convertToDTO'], $this->findPaginatedCurrencies($page, $limit));
+    }
+
+    private static function getOffset(int $page, int $limit): int
+    {
+        return ($page - 1) * $limit;
     }
 }

@@ -8,17 +8,15 @@ class ListAction extends BaseAction
 {
     public function __invoke(int $page = 1): Response
     {
-        $limit = 10;
-        $offset = ($page - 1) * $limit;
+        $limit = self::LIMIT;
 
-        $currencies = $this->currencyRepository->findPaginatedCurrencies($offset, $limit);
+        $currenciesDTO = $this->currencyRepository->findDTOPaginatedCurrencies($page, $limit);
         $totalCurrencies = $this->currencyRepository->countCurrencies();
-        $totalPages = ceil($totalCurrencies / $limit);
 
         return $this->render('@CurrencyConverter/action/list.html.twig', [
-            'currencies' => $currencies,
+            'currencies' => $currenciesDTO,
             'currentPage' => $page,
-            'totalPages' => $totalPages,
+            'totalPages' => ceil($totalCurrencies / $limit),
         ]);
     }
 }

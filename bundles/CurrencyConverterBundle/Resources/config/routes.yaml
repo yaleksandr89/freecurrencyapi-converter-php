@@ -23,7 +23,7 @@ edit_currency_action:
 update_currencies_action:
   path: /currencies/update
   controller: currency_converter_bundle.action.update_currencies
-  methods: [ GET ]
+  methods: [ POST ]
 
 converter_action:
   path: /currencies/convert

@@ -40,7 +40,7 @@ $(document).ready(function () {
                 'visibility': 'hidden',
                 'position': 'absolute',
                 'white-space': 'nowrap',
-                'font': $el.css('font') // копируем стиль шрифта для точного вычисления
+                'font': $el.css('font')
             })
             .appendTo('body');
 
@@ -67,10 +67,17 @@ $(document).ready(function () {
             $el.text(loadingText).animate({opacity: 1}, 300);
         });
 
+        // Извлекаем номер страницы из URL
+        let currentPage = currentUrl.split('/').pop();
+        currentPage = isNaN(currentPage) ? 1 : parseInt(currentPage);
+
         // Выполняем AJAX запрос
         $.ajax({
             url: $el.data('url'),
-            method: 'GET',
+            method: 'POST',
+            data: {
+                page: currentPage, // Добавляем текущую страницу в данные запроса
+            },
             headers: {
                 'X-Requested-With': 'XMLHttpRequest'
             },
