@@ -2,6 +2,7 @@
 
 namespace Bundles\CurrencyConverterBundle\Repository;
 
+use Bundles\CurrencyConverterBundle\DTO\CurrencyDTO;
 use Bundles\CurrencyConverterBundle\Entity\Currency;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -89,5 +90,36 @@ class CurrencyRepository extends ServiceEntityRepository
             ->select('COUNT(c.id)')
             ->getQuery()
             ->getSingleScalarResult();
+    }
+
+    private function convertToDTO(Currency $currency): CurrencyDTO
+    {
+        return new CurrencyDTO(
+            $currency->getId(),
+            $currency->getTitle(),
+            $currency->getCode(),
+            $currency->getSymbol(),
+            $currency->getNamePlural(),
+            $currency->getRate(),
+            $currency->getCreatedAt(),
+            $currency->getUpdatedAt()
+        );
+    }
+
+    public function findDTOById(int $id): ?CurrencyDTO
+    {
+        $currency = $this->find($id);
+
+        return $currency ? $this->convertToDTO($currency) : null;
+    }
+
+    public function findAllDTO(): array
+    {
+        $currencies = $this->createQueryBuilder('c')
+            ->orderBy('c.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+        return array_map([$this, 'convertToDTO'], $currencies);
     }
 }

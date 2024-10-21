@@ -1,44 +1,47 @@
 header_menu:
-  dashboard: Панель управления
-dashboard: Панель управления
-copyright: Все права защищены
-delete: Удалить
-base_currency: является базовой валютой
+  dashboard: 'Панель управления'
+dashboard: 'Панель управления'
+copyright: 'Все права защищены'
+delete: 'Удалить'
+base_currency: 'является базовой валютой'
 
 currencies:
-  label: Валюты
-  list: Список валют
-  edit: Изменить валюту
+  label: 'Валюты'
+  list: 'Список валют'
+  edit: 'Изменить валюту'
   form:
     title:
-      label: Название
-      placeholder: Введите название
-      not_blank: Пожалуйста, введите название
+      label: 'Название'
+      placeholder: 'Введите название'
+      not_blank: 'Пожалуйста, введите название'
     code:
-      label: Код валюты
-      placeholder: Введите код валюты (например, RUB)
-      not_blank: Пожалуйста, введите код валюты
+      label: 'Код валюты'
+      placeholder: 'Введите код валюты (например, RUB)'
+      not_blank: 'Пожалуйста, введите код валюты'
     rate:
-      label: Курс обмена
-      placeholder: Введите курс обмена
-      not_blank: Пожалуйста, введите курс обмена
+      label: 'Курс обмена'
+      placeholder: 'Введите курс обмена'
+      not_blank: 'Пожалуйста, введите курс обмена'
     submit:
-      label: Сохранить изменения
+      label: 'Сохранить изменения'
   actions:
     dashboard:
-      title_update_at: Дата обновления
+      title_update_at: 'Дата обновления'
     list:
-      empty: Валюты не найдены
-      id: Ид
-      title: Название
-      code: Код
-      symbol: Символ
-      name_plural: Множественное название
-      rate: Курс
-      created_at: Дата создания
-      updated_at: Дата обновления
-      actions: Действия
-      edit: Изменить
-      delete: Удалить
+      empty: 'Валюты не найдены'
+      id: 'Ид'
+      title: 'Название'
+      code: 'Код'
+      symbol: 'Символ'
+      name_plural: 'Множественное название'
+      rate: 'Курс'
+      created_at: 'Дата создания'
+      updated_at: 'Дата обновления'
+      actions: 'Действия'
+      edit: 'Обновить'
+      delete: 'Удалить'
     update_currencies:
-      load_or_update: Загрузить / Обновить валюты
+      load_or_update: 'Загрузить / Обновить валюты'
+      loading: 'Загрузка...'
+      forbidden: 'Запрещено'
+      server_error: 'Внутренняя ошибка сервера'

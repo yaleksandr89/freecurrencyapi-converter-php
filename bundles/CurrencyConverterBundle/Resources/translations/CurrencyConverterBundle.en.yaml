@@ -1,44 +1,47 @@
 header_menu:
-  dashboard: Dashboard
-dashboard: Dashboard
-copyright: Copyright
-delete: Delete
-base_currency: is the base currency
+  dashboard: 'Dashboard'
+dashboard: 'Dashboard'
+copyright: 'Copyright'
+delete: 'Delete'
+base_currency: 'is the base currency'
 
 currencies:
-  label: Currencies
-  list: List of currencies
-  edit: Edit currency
+  label: 'Currencies'
+  list: 'List of currencies'
+  edit: 'Edit currency'
   form:
     title:
-      label: Title
-      placeholder: Enter a title
-      not_blank: Please enter a title
+      label: 'Title'
+      placeholder: 'Enter a title'
+      not_blank: 'Please enter a title'
     code:
-      label: Currency Code
-      placeholder: Enter currency code (e.g., USD)
-      not_blank: Please enter a currency code
+      label: 'Currency Code'
+      placeholder: 'Enter currency code (e.g., USD)'
+      not_blank: 'Please enter a currency code'
     rate:
-      label: Exchange Rate
-      placeholder: Enter exchange rate
-      not_blank: Please enter an exchange rate
+      label: 'Exchange Rate'
+      placeholder: 'Enter exchange rate'
+      not_blank: 'Please enter an exchange rate'
     submit:
-      label: Save changes
+      label: 'Save changes'
   actions:
     dashboard:
-      title_update_at: Update at
+      title_update_at: 'Update at'
     list:
-      empty: No currencies found
-      id: Id
-      title: Title
-      code: Code
-      symbol: Symbol
-      name_plural: Name Plural
-      rate: Rate
-      created_at: Created At
-      updated_at: Updated At
-      actions: Actions
-      edit: Edit
-      delete: Delete
+      empty: 'No currencies found'
+      id: 'Id'
+      title: 'Title'
+      code: 'Code'
+      symbol: 'Symbol'
+      name_plural: 'Name Plural'
+      rate: 'Rate'
+      created_at: 'Created At'
+      updated_at: 'Updated At'
+      actions: 'Actions'
+      edit: 'Update'
+      delete: 'Delete'
     update_currencies:
-      load_or_update: Download / Update Currencies
+      load_or_update: 'Download / Update Currencies'
+      loading: 'Loading...'
+      forbidden: 'Forbidden'
+      server_error: 'Internal Server Error'

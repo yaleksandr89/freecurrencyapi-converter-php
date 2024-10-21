@@ -4,7 +4,11 @@ namespace Bundles\CurrencyConverterBundle\Action;
 
 use Bundles\CurrencyConverterBundle\Repository\CurrencyRepository;
 use Bundles\CurrencyConverterBundle\Service\CurrencyApiService;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Contracts\Service\Attribute\Required;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -15,6 +19,8 @@ abstract class BaseAction extends AbstractController
     protected CurrencyApiService $currencyApiService;
 
     protected CurrencyRepository $currencyRepository;
+
+    protected LoggerInterface $logger;
 
     #[Required]
     public function setTranslator(TranslatorInterface $translator): void
@@ -32,6 +38,12 @@ abstract class BaseAction extends AbstractController
     public function setCurrencyRepository(CurrencyRepository $currencyRepository): void
     {
         $this->currencyRepository = $currencyRepository;
+    }
+
+    #[Required]
+    public function setLogger(LoggerInterface $logger): void
+    {
+        $this->logger = $logger;
     }
 
     protected function trans(
@@ -53,5 +65,16 @@ abstract class BaseAction extends AbstractController
         return $this
             ->translator
             ->getLocale();
+    }
+
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
+    public function getSession(): SessionInterface
+    {
+        return $this->container
+            ->get('request_stack')
+            ->getSession();
     }
 }

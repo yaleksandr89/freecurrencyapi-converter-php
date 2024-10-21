@@ -4,7 +4,13 @@
     <h6 class="m-0 font-weight-bold text-primary">{{ sectionTitle }}</h6>
     <div class="ml-auto d-flex">
         {% if show_btn_update is defined and true == show_btn_update %}
-            <a href="{{ path('update_currencies_action') }}" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm mr-2">
+            <a href="#"
+               class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm mr-2"
+               data-action="update-currencies"
+               data-url="{{ path('update_currencies_action') }}"
+               data-loading-text="{{ 'currencies.actions.update_currencies.loading'|trans }}"
+               data-default-text="{{ 'currencies.actions.update_currencies.load_or_update'|trans }}"
+            >
                 {{ 'currencies.actions.update_currencies.load_or_update'|trans }}
             </a>
         {% endif %}

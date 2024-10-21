@@ -110,7 +110,7 @@ readonly class CurrencyApiService
         return $data['data'];
     }
 
-    private function log(string $type = 'info', string $message, array $context = []): void
+    private function log(string $message, string $type = 'info', array $context = []): void
     {
         $this
             ->logger
