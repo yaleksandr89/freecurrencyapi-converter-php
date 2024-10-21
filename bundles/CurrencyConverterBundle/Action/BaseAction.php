@@ -79,4 +79,21 @@ abstract class BaseAction extends AbstractController
             ->get('request_stack')
             ->getSession();
     }
+
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
+    protected function isAjaxRequest(): bool
+    {
+        $request = $this->container
+            ->get('request_stack')
+            ->getCurrentRequest();
+
+        if (!$request) {
+            return false;
+        }
+
+        return $request->isXmlHttpRequest();
+    }
 }

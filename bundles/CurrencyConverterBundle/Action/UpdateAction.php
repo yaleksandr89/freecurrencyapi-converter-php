@@ -5,8 +5,10 @@ namespace Bundles\CurrencyConverterBundle\Action;
 
 use Bundles\CurrencyConverterBundle\DTO\CurrencyDTO;
 use Exception;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -20,12 +22,14 @@ class UpdateAction extends BaseAction
      * @throws ServerExceptionInterface
      * @throws RedirectionExceptionInterface
      * @throws DecodingExceptionInterface
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      * @throws ClientExceptionInterface
      */
-    public function __invoke(Request $request): JsonResponse
+    public function __invoke(Request $request): Response
     {
-        if (!$request->isXmlHttpRequest()) {
-            return new JsonResponse([
+        if (!$this->isAjaxRequest()) {
+            return $this->json([
                 'success' => false,
                 'message' => $this->trans('currencies.actions.update_currencies.forbidden'),
             ], 403);
@@ -55,17 +59,23 @@ class UpdateAction extends BaseAction
                 $currenciesDTO
             );
 
-            return new JsonResponse([
+            $pagination = $totalCurrencies > 0
+                ? $this->renderView('@CurrencyConverter/_embed/_pagination.html.twig', [
+                    'routeName' => 'list_currencies_action',
+                    'currentPage' => $currentPage,
+                    'totalPages' => ceil($totalCurrencies / $limit), // Пагинация будет генерироваться только если валюты есть
+                ])
+                : '';
+
+            return $this->json([
                 'success' => true,
                 'currencies' => $currencyArrayWithDateTime,
-                'totalPages' => ceil($totalCurrencies / $limit),
-                'currentPage' => $currentPage,
+                'pagination' => $pagination,
             ]);
-
         } catch (Exception $e) {
             $this->logger->error('Internal Server Error', ['method' => __METHOD__, 'message' => $e->getMessage(),]);
 
-            return new JsonResponse([
+            return $this->json([
                 'success' => false,
                 'message' => $this->trans('currencies.actions.update_currencies.server_error'),
             ], 500);

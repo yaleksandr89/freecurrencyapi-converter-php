@@ -38,7 +38,7 @@ currencies:
       created_at: 'Created At'
       updated_at: 'Updated At'
       actions: 'Actions'
-      edit: 'Update'
+      update: 'Update'
       delete: 'Delete'
     update_currencies:
       load_or_update: 'Download / Update Currencies'

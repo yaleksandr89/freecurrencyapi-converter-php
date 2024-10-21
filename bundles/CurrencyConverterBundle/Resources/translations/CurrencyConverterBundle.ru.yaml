@@ -38,7 +38,7 @@ currencies:
       created_at: 'Дата создания'
       updated_at: 'Дата обновления'
       actions: 'Действия'
-      edit: 'Обновить'
+      update: 'Обновить'
       delete: 'Удалить'
     update_currencies:
       load_or_update: 'Загрузить / Обновить валюты'

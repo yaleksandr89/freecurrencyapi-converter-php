@@ -3,16 +3,15 @@ import '/../../../bundles/currencyconverter/js/bootstrap.bundle.js';
 import '/../../../bundles/currencyconverter/js/jquery.easing.js';
 import '/../../../bundles/currencyconverter/js/sb-admin-2.js';
 
-$(document).ready(function () {
-    let currentUrl = window.location.pathname; // текущий URL
 
-    // Проверяем URL и добавляем класс active к соответствующему пункту меню
+// 1. Скрипт, который переключает sidebar
+$(document).ready(function () {
     switch (true) {
-        case currentUrl === '/currencies':
+        case window.location.pathname === '/currencies':
             // Добавляем класс active к пункту "dashboard"
             $('#dashboard').closest('li').addClass('active');
             break;
-        case currentUrl.startsWith('/currencies/list'):
+        case window.location.pathname.startsWith('/currencies/list'):
             let currencies = $('#currencies');
             // Убираем класс collapsed и добавляем show для раскрытия меню
             currencies.removeClass('collapsed');
@@ -25,8 +24,14 @@ $(document).ready(function () {
         default:
             break;
     }
+});
 
-    // Обработка нажатия на кнопку обновления валют
+// 2. Обработка кнопки: "Загрузить / Обновить валюты"
+$(document).ready(function () {
+    // Перевод кнопок из колонки "Действия"
+    let actionsBtnEditText = $('[data-trans-update-btn]').data('trans-update-btn');
+    let actionsBtnDeleteText = $('[data-trans-delete-btn]').data('trans-delete-btn');
+
     $('a[data-action="update-currencies"]').on('click', function (e) {
         e.preventDefault();
         let $el = $(this);
@@ -68,36 +73,26 @@ $(document).ready(function () {
         });
 
         // Извлекаем номер страницы из URL
-        let currentPage = currentUrl.split('/').pop();
+        let currentPage = window.location.pathname.split('/').pop();
         currentPage = isNaN(currentPage) ? 1 : parseInt(currentPage);
 
-        // Выполняем AJAX запрос
-        $.ajax({
-            url: $el.data('url'),
-            method: 'POST',
-            data: {
-                page: currentPage, // Добавляем текущую страницу в данные запроса
-            },
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest'
-            },
-            success: function (response) {
-                let editText = $('[data-trans-edit-btn]').data('trans-edit-btn');
-                let deleteText = $('[data-trans-delete-btn]').data('trans-delete-btn');
-
-                // Очищаем старые строки таблицы
-                let $tableBody = $('#main_table tbody');
-                $tableBody.empty();
-
-                if (response.success) {
-                    //console.log('Валюты успешно обновлены!', response);
-
-                    // Очищаем старые строки таблицы
+        setTimeout(function () {
+            $.ajax({
+                url: $el.data('url'),
+                method: 'POST',
+                data: {
+                    page: currentPage,
+                },
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                success: function (response) {
                     let $tableBody = $('#main_table tbody');
                     $tableBody.empty();
 
-                    response.currencies.forEach(function (currency) {
-                        let row = `
+                    if (response.success) {
+                        response.currencies.forEach(function (currency) {
+                            let row = `
                             <tr ${currency.code === 'USD' ? 'class="table-secondary"' : ''}>
                                 <td class="align-middle">${currency.id}</td>
                                 <td class="align-middle"><code>${currency.code}</code></td>
@@ -107,23 +102,109 @@ $(document).ready(function () {
                                 <td class="align-middle">${currency.rate}</td>
                                 <td class="align-middle">${currency.createdAt}</td>
                                 <td class="align-middle">${currency.updatedAt}</td>
+                                <td class="align-middle">
+                                    <div class="button-group">
+                                        <a href="#" 
+                                            class="btn btn-sm btn-outline-dark" 
+                                            data-action="update-currency" 
+                                            data-id="${currency.id}"
+                                        >
+                                            ${actionsBtnEditText}
+                                        </a>
+                                        <a href="#" 
+                                            class="btn btn-sm btn-outline-danger" 
+                                            data-action="delete-currency" 
+                                            data-id="${currency.id}"
+                                        >
+                                            ${actionsBtnDeleteText}
+                                        </a>
+                                    </div>
+                                </td>
                             </tr>`;
+                            $tableBody.append(row);
+                        });
+
+                        // Обновляем пагинацию
+                        $('div#pagination').html(response.pagination);
+                    } else {
+                        console.log('Ошибка:', response.message);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    //console.error('Error during the request:', textStatus, errorThrown);
+                    console.error('Ошибка при загрузке данных для пагинации');
+                },
+                complete: function () {
+                    // Плавная смена текста обратно на оригинальный
+                    $el.animate({opacity: 0.5}, 300, function () {
+                        $el.text(originalText).animate({opacity: 1}, 300);
+                        $el.css('pointer-events', 'auto'); // Включаем указатель
+                    });
+                }
+            });
+        }, 250);
+    });
+
+    $('div#pagination').on('click', '.page-link', function (e) {
+        e.preventDefault();
+        const url = $(this).data('route');
+
+        // Отображаем спиннер
+        let $tableBody = $('#main_table tbody');
+        $tableBody.html('<tr><td colspan="9" class="text-center"><div class="spinner-border" role="status"></div></td></tr>');
+
+        setTimeout(function () {
+            $.ajax({
+                url: url,
+                method: 'GET',
+                success: function (response) {
+                    // Очищаем старые строки таблицы
+                    $tableBody.empty();
+
+                    response.currencies.forEach(function (currency) {
+                        let row = `
+                    <tr ${currency.code === 'USD' ? 'class="table-secondary"' : ''}>
+                        <td class="align-middle">${currency.id}</td>
+                        <td class="align-middle"><code>${currency.code}</code></td>
+                        <td class="align-middle">${currency.title}</td>
+                        <td class="align-middle">${currency.namePlural}</td>
+                        <td class="align-middle"><code>${currency.symbol}</code></td>
+                        <td class="align-middle">${currency.rate}</td>
+                        <td class="align-middle">${currency.createdAt}</td>
+                        <td class="align-middle">${currency.updatedAt}</td>
+                                                    <td class="align-middle">
+                                <div class="button-group">
+                                    <a href="#" 
+                                        class="btn btn-sm btn-outline-dark" 
+                                        data-action="update-currency" 
+                                        data-id="${currency.id}"
+                                    >
+                                        ${actionsBtnEditText}
+                                    </a>
+                                    <a href="#" 
+                                        class="btn btn-sm btn-outline-danger" 
+                                        data-action="delete-currency" 
+                                        data-id="${currency.id}"
+                                    >
+                                        ${actionsBtnDeleteText}
+                                    </a>
+                                </div>
+                            </td>
+                    </tr>`;
                         $tableBody.append(row);
                     });
-                } else {
-                    console.log('Ошибка:', response.message);
+
+                    // Обновляем элементы пагинации
+                    $('div#pagination').html(response.pagination);
+
+                    // Обновляем URL в адресной строке
+                    window.history.pushState({}, '', url);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    //console.error('Ошибка при загрузке данных для пагинации:', textStatus, errorThrown);
+                    $tableBody.html('<tr><td colspan="9" class="text-center">Ошибка при загрузке данных. Попробуйте еще раз.</td></tr>');
                 }
-            },
-            error: function () {
-                console.log('Произошла ошибка при обновлении валют. Попробуйте еще раз.');
-            },
-            complete: function () {
-                // Плавная смена текста обратно на оригинальный
-                $el.animate({opacity: 0.5}, 300, function () {
-                    $el.text(originalText).animate({opacity: 1}, 300);
-                    $el.css('pointer-events', 'auto'); // Включаем указатель
-                });
-            }
-        });
+            });
+        }, 250);
     });
 });
