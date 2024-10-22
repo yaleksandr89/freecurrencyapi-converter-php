@@ -14,8 +14,3 @@ update_currencies_action:
   path: /currencies/update
   controller: currency_converter_bundle.action.update_currencies
   methods: [ POST ]
-
-converter_action:
-  path: /currencies/convert
-  controller: currency_converter_bundle.action.convert
-  methods: [ POST ]
