@@ -14,3 +14,8 @@ update_currencies_action:
   path: /currencies/update
   controller: currency_converter_bundle.action.update_currencies
   methods: [ POST ]
+
+historical_rates_action:
+  path: /currencies/historical
+  controller: currency_converter_bundle.action.historical_rates
+  methods: [ GET, POST ]

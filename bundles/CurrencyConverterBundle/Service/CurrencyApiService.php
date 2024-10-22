@@ -110,6 +110,37 @@ readonly class CurrencyApiService
         return $data['data'];
     }
 
+    /**
+     * @throws TransportExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws DecodingExceptionInterface
+     * @throws ClientExceptionInterface
+     */
+    public function getHistoricalRates(string $date, string $baseCurrency = 'USD', array $currencies = []): array
+    {
+//        if ($this->useMockData) {
+//            return include dirname(__DIR__) . '/Resources/mocks/historical_rates_mock.php';
+//        }
+
+        $endpoint = $this->apiUrl . '/historical';
+        $query = [
+            'apikey' => $this->apiKey,
+            'date' => $date,
+            'base_currency' => $baseCurrency,
+        ];
+
+        if (!empty($currencies)) {
+            $query['currencies'] = implode(',', $currencies);
+        }
+
+        $response = $this->client->request('GET', $endpoint, [
+            'query' => $query,
+        ]);
+
+        return $response->toArray()['data'];
+    }
+
     private function log(string $message, string $type = 'info', array $context = []): void
     {
         $this

@@ -26,7 +26,12 @@
         </a>
         <div id="collapseCurrencies" class="collapse" aria-labelledby="headingCurrencies" data-parent="#accordionSidebar">
             <div class="bg-dark py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{ path('list_currencies_action') }}">{{ 'currencies.list'|trans }}</a>
+                <a class="collapse-item" href="{{ path('list_currencies_action') }}">
+                    {{ 'currencies.list'|trans }}
+                </a>
+                <a class="collapse-item" href="{{ path('historical_rates_action') }}">
+                    {{ 'currencies.historical_rates'|trans }}
+                </a>
             </div>
         </div>
     </li>

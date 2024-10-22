@@ -1,0 +1,88 @@
+{% extends '@CurrencyConverter/layout/layout_main.html.twig' %}
+{% trans_default_domain 'CurrencyConverterBundle' %}
+
+{% block title_detailed %}{{ 'currencies.historical_rates'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            {% include '@CurrencyConverter/_embed/_header_action.html.twig' with
+                {
+                    'sectionTitle': 'currencies.historical_rates'|trans,
+                    'show_btn_update': false
+                }
+            %}
+        </div>
+        <div class="card-body">
+            {{ form_start(form) }}
+            <div class="form-group row">
+                <div class="col-md-3">
+                    {{ form_label(form.date) }}
+                </div>
+                <div class="col-md-9">
+                    {{ form_widget(form.date) }}
+                    <div class="form-error">
+                        {{ form_errors(form.date) }}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-3">
+                    {{ form_label(form.base_currency) }}
+                </div>
+                <div class="col-md-9">
+                    {{ form_widget(form.base_currency) }}
+                    <div class="form-error">
+                        {{ form_errors(form.base_currency) }}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-3">
+                    {{ form_label(form.currencies) }}
+                </div>
+                <div class="col-md-9">
+                    {{ form_widget(form.currencies) }}
+                    <div class="form-error">
+                        {{ form_errors(form.currencies) }}
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div class="d-flex justify-content-end">
+                {{ form_widget(form.submit) }}
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+    {% if historicalRates %}
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">{{ 'Historical Rates'|trans }}</h6>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>{{ 'Currency'|trans }}</th>
+                        <th>{{ 'Rate'|trans }}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for date, rates in historicalRates %}
+                        {% for currency, rate in rates %}
+                            <tr>
+                                <td>{{ date }}</td>
+                                <td>{{ currency }}</td>
+                                <td>{{ rate }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

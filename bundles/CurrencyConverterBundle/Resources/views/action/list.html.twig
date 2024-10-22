@@ -52,8 +52,14 @@
                     </tbody>
                 </table>
             </div>
-            <div id="pagination">
-                {{ pagination|raw }}
+            <div class="d-flex justify-content-between align-items-center">
+                <div id="pagination">
+                    {{ pagination|raw }}
+                </div>
+                <div class="base-currency ms-auto">
+                    <span class="icon text-white-50"><i class="fas fa-dollar-sign"></i></span>
+                    <span class="text">USD - {{ 'base_currency'|trans }}</span>
+                </div>
             </div>
         </div>
     </div>

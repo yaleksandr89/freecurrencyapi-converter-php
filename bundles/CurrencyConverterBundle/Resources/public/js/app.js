@@ -13,13 +13,17 @@ $(document).ready(function () {
             break;
         case window.location.pathname.startsWith('/currencies/list'):
             let currencies = $('#currencies');
-            // Убираем класс collapsed и добавляем show для раскрытия меню
             currencies.removeClass('collapsed');
             $('#collapseCurrencies').addClass('show');
-            // Подсвечиваем текущий выбранный пункт в разделе "currencies"
             currencies.closest('li').addClass('active');
-            // Подсвечиваем активный подпункт
             $('a[href="/currencies/list"]').addClass('active');
+            break;
+        case window.location.pathname.startsWith('/currencies/historical'):
+            let currenciesHist = $('#currencies');
+            currenciesHist.removeClass('collapsed');
+            $('#collapseCurrencies').addClass('show');
+            currenciesHist.closest('li').addClass('active');
+            $('a[href="/currencies/historical"]').addClass('active');
             break;
         default:
             break;

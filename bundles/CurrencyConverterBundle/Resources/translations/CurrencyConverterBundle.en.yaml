@@ -8,6 +8,7 @@ base_currency: 'is the base currency'
 currencies:
   label: 'Currencies'
   list: 'List of currencies'
+  historical_rates: 'Historical courses'
   form:
     title:
       label: 'Title'
@@ -21,8 +22,19 @@ currencies:
       label: 'Exchange Rate'
       placeholder: 'Enter exchange rate'
       not_blank: 'Please enter an exchange rate'
+    date:
+      label: 'Date'
+      not_blank: 'Please select a date'
+    base_currency:
+      label: 'Base Currency'
+      placeholder: 'Select the base currency'
+      not_blank: 'Please enter a base currency'
+    currencies:
+      label: 'Currencies'
+      placeholder: 'Select currency codes'
+      not_blank: 'Please enter one or more currencies'
     submit:
-      label: 'Save changes'
+      label: 'Get Historical Rates'
   actions:
     dashboard:
       title_update_at: 'Update at'

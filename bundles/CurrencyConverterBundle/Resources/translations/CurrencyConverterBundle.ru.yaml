@@ -8,6 +8,7 @@ base_currency: 'является базовой валютой'
 currencies:
   label: 'Валюты'
   list: 'Список валют'
+  historical_rates: 'Исторические курсы'
   form:
     title:
       label: 'Название'
@@ -21,8 +22,19 @@ currencies:
       label: 'Курс обмена'
       placeholder: 'Введите курс обмена'
       not_blank: 'Пожалуйста, введите курс обмена'
+    date:
+      label: 'Дата'
+      not_blank: 'Пожалуйста, выберите дату'
+    base_currency:
+      label: 'Базовая валюта'
+      placeholder: 'Выберите базовую валюту'
+      not_blank: 'Пожалуйста, введите базовую валюту'
+    currencies:
+      label: 'Валюты'
+      placeholder: 'Выберите коды валют'
+      not_blank: 'Пожалуйста, введите одну или несколько валют'
     submit:
-      label: 'Сохранить изменения'
+      label: 'Получить исторические курсы'
   actions:
     dashboard:
       title_update_at: 'Дата обновления'
