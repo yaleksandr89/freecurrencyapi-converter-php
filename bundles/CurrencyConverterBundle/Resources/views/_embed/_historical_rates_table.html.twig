@@ -1,0 +1,38 @@
+{% trans_default_domain 'CurrencyConverterBundle' %}
+
+<div class="card shadow">
+    <div class="card-header py-3">
+        <div class="base-currency ms-auto">
+            {{ 'currencies.actions.historical_rates.base_currency'|trans({'CODE': baseCurrency}) }}
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="historicalRatesTable">
+                <thead>
+                    <tr class="text-center">
+                        <th rowspan="{{ historicalData|length }}" class="align-middle">{{ 'currencies.actions.historical_rates.date'|trans }}</th>
+                        <th class="align-middle">{{ 'currencies.actions.historical_rates.currency'|trans }}</th>
+                        <th class="align-middle">{{ 'currencies.actions.historical_rates.rate'|trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for entry in historicalData %}
+                    {% set date = entry.date %}
+                    {% for currency, rate in entry.rates %}
+                        {% if currency != baseCurrency %}
+                            <tr>
+                                {% if loop.first %}
+                                    <td rowspan="{{ entry.rates|length }}" class="align-middle text-center font-weight-bold">{{ date }}</td>
+                                {% endif %}
+                                <td>{{ currency }}</td>
+                                <td>{{ rate }}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

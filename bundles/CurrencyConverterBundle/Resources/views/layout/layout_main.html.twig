@@ -13,6 +13,7 @@
                 {{ include('@CurrencyConverter/_embed/_topbar.html.twig') }}
                 <div class="container-fluid">
                     {% include '@CurrencyConverter/_embed/_flash_message.html.twig' %}
+                    <div id="ajax-error-message"></div>
                     {% block body %}{% endblock %}
                 </div>
             </div>

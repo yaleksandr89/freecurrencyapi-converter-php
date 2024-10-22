@@ -25,6 +25,8 @@ currencies:
     date:
       label: 'Дата'
       not_blank: 'Пожалуйста, выберите дату'
+      too_early: 'Дата не может быть ранее 01.01.2000'
+      too_late: 'Дата не может быть позже вчерашнего дня'
     base_currency:
       label: 'Базовая валюта'
       placeholder: 'Выберите базовую валюту'
@@ -56,3 +58,8 @@ currencies:
       loading: 'Загрузка...'
       forbidden: 'Запрещено'
       server_error: 'Внутренняя ошибка сервера'
+    historical_rates:
+      base_currency: 'CODE - базовая валюта, относительно которой рассчитывается курс выбранных валют'
+      date: 'Дата'
+      currency: 'Валюта'
+      rate: 'Курс'

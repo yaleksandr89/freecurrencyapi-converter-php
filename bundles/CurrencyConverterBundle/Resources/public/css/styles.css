@@ -110,8 +110,8 @@ select.form-control[multiple], select.form-control[size] {
 .base-currency {
     display: inline-flex;
     align-items: center;
-    background-color: #2a3042;
-    background-image: linear-gradient(180deg, #2e3343 10%, #2a3042 100%);
+    background-color: #5a5c69;
+    background-image: linear-gradient(180deg, #5a5c60 10%, #5a5c69 100%);
     color: #ffffff;
     border-radius: 0.35rem;
     padding: 6px 12px;

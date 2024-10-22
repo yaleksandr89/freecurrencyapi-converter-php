@@ -25,6 +25,8 @@ currencies:
     date:
       label: 'Date'
       not_blank: 'Please select a date'
+      too_early: 'The date must not be earlier than January 1, 2000'
+      too_late: 'The date must not be later than yesterday'
     base_currency:
       label: 'Base Currency'
       placeholder: 'Select the base currency'
@@ -56,3 +58,8 @@ currencies:
       loading: 'Loading...'
       forbidden: 'Forbidden'
       server_error: 'Internal Server Error'
+    historical_rates:
+      base_currency: 'The CODE - base currency, against which the exchange rate of the selected currencies is calculated'
+      date: 'Date'
+      currency: 'Currency'
+      rate: 'Rate'

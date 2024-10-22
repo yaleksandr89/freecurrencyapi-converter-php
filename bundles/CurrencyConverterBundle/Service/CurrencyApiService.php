@@ -43,14 +43,13 @@ readonly class CurrencyApiService
     public function getStatus(): array
     {
         $endpoint = $this->apiUrl . '/status';
-
         //$this->log('info', 'Sending request to FreeCurrencyAPI status endpoint', ['url' => $endpoint]);
         $response = $this->client->request('GET', $endpoint, [
             'query' => [
                 'apikey' => $this->apiKey,
             ],
         ]);
-        //$this->log('info', 'Response received from FreeCurrencyAPI', ['status_code' => $response->getStatusCode()]);
+        //$this->log('info', 'Response received from FreeCurrencyAPI (status endpoint)', ['status_code' => $response->getStatusCode()]);
 
         return $response->toArray();
     }
@@ -65,16 +64,17 @@ readonly class CurrencyApiService
     public function getAllCurrencies(): array
     {
         if ($this->useMockData) {
-            return include dirname(__DIR__) . '/Resources/mocks/received_currencies_17102024.php';
+            return include dirname(__DIR__) . '/Resources/mocks/received-currencies-17102024.php';
         }
 
         $endpoint = $this->apiUrl . '/currencies';
-
+        //$this->log('info', 'Sending request to FreeCurrencyAPI currencies endpoint', ['url' => $endpoint]);
         $response = $this->client->request('GET', $endpoint, [
             'query' => [
                 'apikey' => $this->apiKey,
             ],
         ]);
+        //$this->log('info', 'Response received from FreeCurrencyAPI (currencies endpoint)', ['status_code' => $response->getStatusCode()]);
 
         return $response->toArray()['data'];
     }
@@ -89,25 +89,20 @@ readonly class CurrencyApiService
     public function getCurrencyRates(string $baseCurrency = 'USD'): array
     {
         if ($this->useMockData) {
-            return include dirname(__DIR__) . '/Resources/mocks/exchange_rate_relative_base_currency_17102024.php';
+            return include dirname(__DIR__) . '/Resources/mocks/exchange-rate-relative-base-currency_17102024.php';
         }
 
         $endpoint = $this->apiUrl . '/latest';
-
+        //$this->log('info', 'Sending request to FreeCurrencyAPI latest endpoint', ['url' => $endpoint]);
         $response = $this->client->request('GET', $endpoint, [
             'query' => [
                 'apikey' => $this->apiKey,
                 'base_currency' => $baseCurrency,
             ],
         ]);
+        //$this->log('info', 'Response received from FreeCurrencyAPI (latest endpoint)', ['status_code' => $response->getStatusCode()]);
 
-        $data = $response->toArray();
-
-        if (!isset($data['data'])) {
-            throw new RuntimeException('Invalid response from FreeCurrencyAPI');
-        }
-
-        return $data['data'];
+        return $response->toArray()['data'];
     }
 
     /**
@@ -119,24 +114,21 @@ readonly class CurrencyApiService
      */
     public function getHistoricalRates(string $date, string $baseCurrency = 'USD', array $currencies = []): array
     {
-//        if ($this->useMockData) {
-//            return include dirname(__DIR__) . '/Resources/mocks/historical_rates_mock.php';
-//        }
-
-        $endpoint = $this->apiUrl . '/historical';
-        $query = [
-            'apikey' => $this->apiKey,
-            'date' => $date,
-            'base_currency' => $baseCurrency,
-        ];
-
-        if (!empty($currencies)) {
-            $query['currencies'] = implode(',', $currencies);
+        if ($this->useMockData) {
+            return include dirname(__DIR__) . '/Resources/mocks/currencies-historical-20000101.php';
         }
 
+        $endpoint = $this->apiUrl . '/historical';
+        //$this->log('info', 'Sending request to FreeCurrencyAPI historical endpoint', ['url' => $endpoint]);
         $response = $this->client->request('GET', $endpoint, [
-            'query' => $query,
+            'query' => [
+                'apikey' => $this->apiKey,
+                'date' => $date,
+                'base_currency' => $baseCurrency,
+                'currencies' => implode(',', $currencies),
+            ],
         ]);
+        //$this->log('info', 'Response received from FreeCurrencyAPI (historical endpoint)', ['status_code' => $response->getStatusCode()]);
 
         return $response->toArray()['data'];
     }

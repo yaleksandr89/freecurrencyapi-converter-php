@@ -14,7 +14,7 @@
             %}
         </div>
         <div class="card-body">
-            {{ form_start(form) }}
+            {{ form_start(form, { 'attr': { 'data-historical-url': path('historical_rates_action') } }) }}
             <div class="form-group row">
                 <div class="col-md-3">
                     {{ form_label(form.date) }}
@@ -55,34 +55,5 @@
             {{ form_end(form) }}
         </div>
     </div>
-
-    {% if historicalRates %}
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">{{ 'Historical Rates'|trans }}</h6>
-            </div>
-            <div class="card-body">
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>{{ 'Currency'|trans }}</th>
-                        <th>{{ 'Rate'|trans }}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for date, rates in historicalRates %}
-                        {% for currency, rate in rates %}
-                            <tr>
-                                <td>{{ date }}</td>
-                                <td>{{ currency }}</td>
-                                <td>{{ rate }}</td>
-                            </tr>
-                        {% endfor %}
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    {% endif %}
+    <div id="historicalRatesTableContainer"></div>
 {% endblock %}

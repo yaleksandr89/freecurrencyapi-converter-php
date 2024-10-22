@@ -6,6 +6,7 @@ use Bundles\CurrencyConverterBundle\DTO\CurrencyDTO;
 use Bundles\CurrencyConverterBundle\Entity\Currency;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use InvalidArgumentException;
 
 class CurrencyRepository extends ServiceEntityRepository
 {
@@ -113,9 +114,23 @@ class CurrencyRepository extends ServiceEntityRepository
         return $currency ? $this->convertToDTO($currency) : null;
     }
 
-    public function findAllDTO(): array
+    public function findAllDTO(string $orderBy = 'id',string $order = 'ASC'): array
     {
-        return array_map([$this, 'convertToDTO'], $this->findAll());
+        $allowedFields = ['id', 'title', 'code', 'symbol', 'namePlural', 'rate', 'createdAt', 'updatedAt'];
+
+        if (!in_array($orderBy, $allowedFields, true)) {
+            throw new InvalidArgumentException(sprintf('Invalid orderBy field: %s', $orderBy));
+        }
+        if (!in_array(strtoupper($order), ['ASC', 'DESC'], true)) {
+            throw new InvalidArgumentException(sprintf('Invalid order: %s', $order));
+        }
+
+        $currencies = $this->createQueryBuilder('c')
+            ->orderBy('c.' . $orderBy, $order)
+            ->getQuery()
+            ->getResult();
+
+        return array_map([$this, 'convertToDTO'], $currencies);
     }
 
     public function findDTOPaginatedCurrencies(int $page, int $limit): array
