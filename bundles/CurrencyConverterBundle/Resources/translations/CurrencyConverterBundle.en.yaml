@@ -8,7 +8,6 @@ base_currency: 'is the base currency'
 currencies:
   label: 'Currencies'
   list: 'List of currencies'
-  edit: 'Edit currency'
   form:
     title:
       label: 'Title'

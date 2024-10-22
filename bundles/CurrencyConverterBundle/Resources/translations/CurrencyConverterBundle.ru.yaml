@@ -8,7 +8,6 @@ base_currency: 'является базовой валютой'
 currencies:
   label: 'Валюты'
   list: 'Список валют'
-  edit: 'Изменить валюту'
   form:
     title:
       label: 'Название'

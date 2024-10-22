@@ -16,8 +16,6 @@ services:
     class: Bundles\CurrencyConverterBundle\Action\DashboardAction
   currency_converter_bundle.action.list:
     class: Bundles\CurrencyConverterBundle\Action\ListAction
-  currency_converter_bundle.action.edit:
-    class: Bundles\CurrencyConverterBundle\Action\EditAction
   currency_converter_bundle.action.convert:
     class: Bundles\CurrencyConverterBundle\Action\ConvertAction
   currency_converter_bundle.action.update_currencies:

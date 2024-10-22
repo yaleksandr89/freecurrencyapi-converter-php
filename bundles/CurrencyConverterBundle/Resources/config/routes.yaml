@@ -10,16 +10,6 @@ list_currencies_action:
   defaults:
     page: 1
 
-edit_currency_form_action:
-  path: /currencies/edit
-  controller: currency_converter_bundle.action.edit
-  methods: [ GET ]
-
-edit_currency_action:
-  path: /currencies/edit
-  controller: currency_converter_bundle.action.edit
-  methods: [ POST ]
-
 update_currencies_action:
   path: /currencies/update
   controller: currency_converter_bundle.action.update_currencies
