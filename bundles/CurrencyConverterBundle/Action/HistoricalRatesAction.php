@@ -25,6 +25,14 @@ class HistoricalRatesAction extends BaseAction
      */
     public function __invoke(Request $request): Response
     {
+        // Проверяем наличие данных в таблице currencies
+        $currencies = $this->currencyRepository->findAllDTO();
+        if (empty($currencies)) {
+            return $this->render('@CurrencyConverter/_embed/_historical_rates_warning.html.twig', [
+                'message' => $this->trans('currencies.actions.historical_rates.data_is_empty'),
+            ]);
+        }
+
         $form = $this->createForm(
             type: HistoricalRatesType::class,
             options: [

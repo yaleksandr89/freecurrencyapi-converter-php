@@ -4,6 +4,7 @@ dashboard: 'Dashboard'
 copyright: 'Copyright'
 delete: 'Delete'
 base_currency: 'is the base currency'
+go_to_list_currencies: 'Go to list of currencies'
 
 currencies:
   label: 'Currencies'
@@ -59,6 +60,7 @@ currencies:
       forbidden: 'Forbidden'
       server_error: 'Internal Server Error'
     historical_rates:
+      data_is_empty: 'Currencies are not loaded. Please load them first'
       base_currency: 'The CODE - base currency, against which the exchange rate of the selected currencies is calculated'
       date: 'Date'
       currency: 'Currency'

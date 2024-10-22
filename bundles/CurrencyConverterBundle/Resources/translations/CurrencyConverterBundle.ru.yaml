@@ -4,6 +4,7 @@ dashboard: 'Панель управления'
 copyright: 'Все права защищены'
 delete: 'Удалить'
 base_currency: 'является базовой валютой'
+go_to_list_currencies: 'Перейти к списку валют'
 
 currencies:
   label: 'Валюты'
@@ -59,6 +60,7 @@ currencies:
       forbidden: 'Запрещено'
       server_error: 'Внутренняя ошибка сервера'
     historical_rates:
+      data_is_empty: 'Валюты не загружены. Пожалуйста, сначала загрузите их'
       base_currency: 'CODE - базовая валюта, относительно которой рассчитывается курс выбранных валют'
       date: 'Дата'
       currency: 'Валюта'

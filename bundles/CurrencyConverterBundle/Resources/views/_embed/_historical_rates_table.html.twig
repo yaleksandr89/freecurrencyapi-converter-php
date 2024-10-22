@@ -10,25 +10,23 @@
         <div class="table-responsive">
             <table class="table table-bordered" id="historicalRatesTable">
                 <thead>
-                    <tr class="text-center">
-                        <th rowspan="{{ historicalData|length }}" class="align-middle">{{ 'currencies.actions.historical_rates.date'|trans }}</th>
-                        <th class="align-middle">{{ 'currencies.actions.historical_rates.currency'|trans }}</th>
-                        <th class="align-middle">{{ 'currencies.actions.historical_rates.rate'|trans }}</th>
-                    </tr>
+                <tr class="text-center">
+                    <th rowspan="{{ historicalData|length }}" class="align-middle">{{ 'currencies.actions.historical_rates.date'|trans }}</th>
+                    <th class="align-middle">{{ 'currencies.actions.historical_rates.currency'|trans }}</th>
+                    <th class="align-middle">{{ 'currencies.actions.historical_rates.rate'|trans }}</th>
+                </tr>
                 </thead>
                 <tbody>
                 {% for entry in historicalData %}
                     {% set date = entry.date %}
                     {% for currency, rate in entry.rates %}
-                        {% if currency != baseCurrency %}
-                            <tr>
-                                {% if loop.first %}
-                                    <td rowspan="{{ entry.rates|length }}" class="align-middle text-center font-weight-bold">{{ date }}</td>
-                                {% endif %}
-                                <td>{{ currency }}</td>
-                                <td>{{ rate }}</td>
-                            </tr>
-                        {% endif %}
+                        <tr>
+                            {% if loop.first %}
+                                <td rowspan="{{ entry.rates|length }}" class="align-middle text-center font-weight-bold">{{ date }}</td>
+                            {% endif %}
+                            <td {% if currency == baseCurrency %}class="table-secondary"{% endif %}>{{ currency }}</td>
+                            <td {% if currency == baseCurrency %}class="table-secondary"{% endif %}>{{ rate }}</td>
+                        </tr>
                     {% endfor %}
                 {% endfor %}
                 </tbody>
