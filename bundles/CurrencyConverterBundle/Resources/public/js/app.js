@@ -26,12 +26,9 @@ $(document).ready(function () {
     }
 });
 
+
 // 2. Обработка кнопки: "Загрузить / Обновить валюты"
 $(document).ready(function () {
-    // Перевод кнопок из колонки "Действия"
-    let actionsBtnEditText = $('[data-trans-update-btn]').data('trans-update-btn');
-    let actionsBtnDeleteText = $('[data-trans-delete-btn]').data('trans-delete-btn');
-
     $('a[data-action="update-currencies"]').on('click', function (e) {
         e.preventDefault();
         let $el = $(this);
@@ -72,7 +69,6 @@ $(document).ready(function () {
             $el.text(loadingText).animate({opacity: 1}, 300);
         });
 
-        // Извлекаем номер страницы из URL
         let currentPage = window.location.pathname.split('/').pop();
         currentPage = isNaN(currentPage) ? 1 : parseInt(currentPage);
 
@@ -102,24 +98,6 @@ $(document).ready(function () {
                                 <td class="align-middle">${currency.rate}</td>
                                 <td class="align-middle">${currency.createdAt}</td>
                                 <td class="align-middle">${currency.updatedAt}</td>
-                                <td class="align-middle">
-                                    <div class="button-group">
-                                        <a href="#" 
-                                            class="btn btn-sm btn-outline-dark" 
-                                            data-action="update-currency" 
-                                            data-id="${currency.id}"
-                                        >
-                                            ${actionsBtnEditText}
-                                        </a>
-                                        <a href="#" 
-                                            class="btn btn-sm btn-outline-danger" 
-                                            data-action="delete-currency" 
-                                            data-id="${currency.id}"
-                                        >
-                                            ${actionsBtnDeleteText}
-                                        </a>
-                                    </div>
-                                </td>
                             </tr>`;
                             $tableBody.append(row);
                         });
@@ -144,21 +122,23 @@ $(document).ready(function () {
             });
         }, 250);
     });
+});
 
+
+// 3. Обработка пагинации
+$(document).ready(function () {
     $('div#pagination').on('click', '.page-link', function (e) {
         e.preventDefault();
         const url = $(this).data('route');
 
-        // Отображаем спиннер
         let $tableBody = $('#main_table tbody');
-        $tableBody.html('<tr><td colspan="9" class="text-center"><div class="spinner-border" role="status"></div></td></tr>');
+        $tableBody.html('<tr><td colspan="8" class="text-center"><div class="spinner-border" role="status"></div></td></tr>');
 
         setTimeout(function () {
             $.ajax({
                 url: url,
                 method: 'GET',
                 success: function (response) {
-                    // Очищаем старые строки таблицы
                     $tableBody.empty();
 
                     response.currencies.forEach(function (currency) {
@@ -172,24 +152,6 @@ $(document).ready(function () {
                         <td class="align-middle">${currency.rate}</td>
                         <td class="align-middle">${currency.createdAt}</td>
                         <td class="align-middle">${currency.updatedAt}</td>
-                                                    <td class="align-middle">
-                                <div class="button-group">
-                                    <a href="#" 
-                                        class="btn btn-sm btn-outline-dark" 
-                                        data-action="update-currency" 
-                                        data-id="${currency.id}"
-                                    >
-                                        ${actionsBtnEditText}
-                                    </a>
-                                    <a href="#" 
-                                        class="btn btn-sm btn-outline-danger" 
-                                        data-action="delete-currency" 
-                                        data-id="${currency.id}"
-                                    >
-                                        ${actionsBtnDeleteText}
-                                    </a>
-                                </div>
-                            </td>
                     </tr>`;
                         $tableBody.append(row);
                     });
@@ -202,7 +164,7 @@ $(document).ready(function () {
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     //console.error('Ошибка при загрузке данных для пагинации:', textStatus, errorThrown);
-                    $tableBody.html('<tr><td colspan="9" class="text-center">Ошибка при загрузке данных. Попробуйте еще раз.</td></tr>');
+                    $tableBody.html('<tr><td colspan="8" class="text-center">Ошибка при загрузке данных. Попробуйте еще раз.</td></tr>');
                 }
             });
         }, 250);
