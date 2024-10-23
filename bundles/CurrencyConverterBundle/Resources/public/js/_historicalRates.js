@@ -21,7 +21,7 @@ $(document).ready(function () {
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                loadErrorMessage('Произошла ошибка при запросе данных. Попробуйте снова.');
+                loadErrorMessage(jqXHR.responseJSON.message);
             }
         });
     });
