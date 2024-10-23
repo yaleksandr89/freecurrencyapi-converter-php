@@ -5,6 +5,8 @@ namespace Bundles\CurrencyConverterBundle\Action;
 use Bundles\CurrencyConverterBundle\Form\HistoricalRatesType;
 use DateTime;
 use Exception;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use RuntimeException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,6 +23,8 @@ class HistoricalRatesAction extends BaseAction
      * @throws DecodingExceptionInterface
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     * @throws ContainerExceptionInterface
      * @throws TransportExceptionInterface
      */
     public function __invoke(Request $request): Response
@@ -42,6 +46,13 @@ class HistoricalRatesAction extends BaseAction
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if (!$this->isAjaxRequest()) {
+                return $this->json([
+                    'success' => false,
+                    'message' => $this->trans('currencies.actions.update_currencies.forbidden'),
+                ], 403);
+            }
+
             $data = $form->getData();
 
             // Данные для отправки в API
@@ -83,7 +94,7 @@ class HistoricalRatesAction extends BaseAction
                 return $this->json([
                     'success' => false,
                     'message' => $e->getMessage(),
-                ]);
+                ], 400);
             }
         }
 
