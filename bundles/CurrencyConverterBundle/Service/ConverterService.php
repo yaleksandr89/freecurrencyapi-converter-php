@@ -5,7 +5,7 @@ namespace Bundles\CurrencyConverterBundle\Service;
 use Bundles\CurrencyConverterBundle\Repository\CurrencyRepository;
 use RuntimeException;
 
-readonly class CurrencyConverterService
+readonly class ConverterService
 {
     public function __construct(
         private CurrencyRepository $currencyRepository
