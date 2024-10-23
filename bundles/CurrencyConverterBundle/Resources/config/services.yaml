@@ -34,6 +34,10 @@ services:
       - '%currency_converter.api_url%'
       - '%currency_converter.use_mock_data%'
 
+  Bundles\CurrencyConverterBundle\Service\CurrencyConverterService:
+    arguments:
+      - '@Bundles\CurrencyConverterBundle\Repository\CurrencyRepository'
+
   Bundles\CurrencyConverterBundle\Repository\CurrencyRepository:
     arguments:
       - '@doctrine'

@@ -138,6 +138,13 @@ class CurrencyRepository extends ServiceEntityRepository
         return array_map([$this, 'convertToDTO'], $this->findPaginatedCurrencies($page, $limit));
     }
 
+    public function findDTOByCode(string $code): ?CurrencyDTO
+    {
+        $currency = $this->findOneBy(['code' => $code]);
+
+        return $currency ? $this->convertToDTO($currency) : null;
+    }
+
     private static function getOffset(int $page, int $limit): int
     {
         return ($page - 1) * $limit;
