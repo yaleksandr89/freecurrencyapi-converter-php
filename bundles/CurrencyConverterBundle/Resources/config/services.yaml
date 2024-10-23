@@ -34,7 +34,7 @@ services:
       - '%currency_converter.api_url%'
       - '%currency_converter.use_mock_data%'
 
-  Bundles\CurrencyConverterBundle\Service\CurrencyConverterService:
+  Bundles\CurrencyConverterBundle\Service\ConverterService:
     arguments:
       - '@Bundles\CurrencyConverterBundle\Repository\CurrencyRepository'
 
