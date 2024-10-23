@@ -20,6 +20,8 @@ services:
     class: Bundles\CurrencyConverterBundle\Action\UpdateAction
   currency_converter_bundle.action.historical_rates:
     class: Bundles\CurrencyConverterBundle\Action\HistoricalRatesAction
+  currency_converter_bundle.action.converter:
+    class: Bundles\CurrencyConverterBundle\Action\ConverterAction
 
   # Services
   # Или если задавать имя сервиса (например: currency_converter_bundle.service.currency_api),

@@ -1,0 +1,51 @@
+{% extends '@CurrencyConverter/layout/layout_main.html.twig' %}
+{% trans_default_domain 'CurrencyConverterBundle' %}
+
+{% block title_detailed %}{{ 'currencies.actions.converter.title'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            {% include '@CurrencyConverter/_embed/_header_action.html.twig' with
+                {
+                    'sectionTitle': 'currencies.actions.converter.title'|trans,
+                    'show_btn_update': false
+                }
+            %}
+        </div>
+        <div class="card-body">
+            {{ form_start(form, { 'attr': { 'data-convert-url': path('converter_action') } }) }}
+            <div class="form-group row">
+                <div class="col-md-6">
+                    {{ form_label(form.from_currency) }}
+                    {{ form_widget(form.from_currency) }}
+                    <div class="form-error">
+                        {{ form_errors(form.from_currency) }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    {{ form_label(form.to_currency) }}
+                    {{ form_widget(form.to_currency) }}
+                    <div class="form-error">
+                        {{ form_errors(form.to_currency) }}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-6">
+                    {{ form_label(form.amount) }}
+                    {{ form_widget(form.amount) }}
+                    <div class="form-error">
+                        {{ form_errors(form.amount) }}
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div class="d-flex justify-content-end">
+                {{ form_widget(form.submit) }}
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+    <div id="conversionResultContainer"></div>
+{% endblock %}
