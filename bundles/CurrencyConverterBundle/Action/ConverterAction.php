@@ -43,6 +43,7 @@ class ConverterAction extends BaseAction
             ]);
         }
 
+        $lastUpdatedCurrency = $this->currencyRepository->findLastUpdateAt();
         $form = $this->createForm(
             type: ConverterType::class,
             options: [
@@ -77,9 +78,15 @@ class ConverterAction extends BaseAction
 
                     return $this->json([
                         'success' => true,
-                        'convertedAmount' => $convertedAmount,
+                        'html' => $this->renderView('@CurrencyConverter/_embed/_conversion_result.html.twig', [
+                            'fromCurrency' => $fromCurrency,
+                            'toCurrency' => $toCurrency,
+                            'amount' => $amount,
+                            'convertedAmount' => $convertedAmount,
+                            'updatedAt' => $lastUpdatedCurrency,
+                            'lastUpdateAt' => $lastUpdatedCurrency,
+                        ]),
                     ]);
-
                 } catch (Exception $e) {
                     $this->logger->error('Internal Server Error', [
                         'method' => __METHOD__,
@@ -106,6 +113,7 @@ class ConverterAction extends BaseAction
 
         return $this->render('@CurrencyConverter/action/converter.html.twig', [
             'form' => $form->createView(),
+            'lastUpdateAt' => $lastUpdatedCurrency,
         ]);
     }
 

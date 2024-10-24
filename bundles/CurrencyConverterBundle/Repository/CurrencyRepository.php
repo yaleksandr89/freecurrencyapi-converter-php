@@ -4,6 +4,7 @@ namespace Bundles\CurrencyConverterBundle\Repository;
 
 use Bundles\CurrencyConverterBundle\DTO\CurrencyDTO;
 use Bundles\CurrencyConverterBundle\Entity\Currency;
+use DateTimeInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use InvalidArgumentException;
@@ -114,7 +115,7 @@ class CurrencyRepository extends ServiceEntityRepository
         return $currency ? $this->convertToDTO($currency) : null;
     }
 
-    public function findAllDTO(string $orderBy = 'id',string $order = 'ASC'): array
+    public function findAllDTO(string $orderBy = 'id', string $order = 'ASC'): array
     {
         $allowedFields = ['id', 'title', 'code', 'symbol', 'namePlural', 'rate', 'createdAt', 'updatedAt'];
 
@@ -143,6 +144,14 @@ class CurrencyRepository extends ServiceEntityRepository
         $currency = $this->findOneBy(['code' => $code]);
 
         return $currency ? $this->convertToDTO($currency) : null;
+    }
+
+    public function findLastUpdateAt() : ?string
+    {
+        return $this->createQueryBuilder('c')
+            ->select('MAX(c.updatedAt) as lastUpdateAt')
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 
     private static function getOffset(int $page, int $limit): int

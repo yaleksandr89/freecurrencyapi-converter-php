@@ -15,27 +15,13 @@ $(document).ready(function () {
             },
             success: function (response) {
                 if (response.success) {
-                    conversionResultContainer.html('<div class="alert alert-success">Converted Amount: ' + response.convertedAmount + '</div>').slideDown(1000);
+                    conversionResultContainer.html(response.html).slideDown(1000);
                 } else {
-                    if (response.errors) {
-                        response.errors.forEach(function (error) {
-                            console.error('success_error_1:');
-                            console.error(error);
-                        });
-                    } else {
-                        console.error('success_error_2:');
-                        console.error(response);
-                    }
+                    loadErrorMessage(response.message);
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                let response = jqXHR.responseJSON;
-
-                if (response && response.success === false) {
-                    loadErrorMessage(response);
-                } else {
-                    console.error('Error: ' + jqXHR.responseText);
-                }
+                loadErrorMessage(jqXHR.responseJSON);
             }
         });
     });

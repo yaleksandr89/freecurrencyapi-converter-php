@@ -10,8 +10,7 @@
                 {
                     'sectionTitle': 'currencies.actions.converter.title'|trans,
                     'show_btn_update': false
-                }
-            %}
+                } %}
         </div>
         <div class="card-body">
             {{ form_start(form, { 'attr': { 'data-convert-url': path('converter_action') } }) }}
@@ -32,7 +31,7 @@
                 </div>
             </div>
             <div class="form-group row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     {{ form_label(form.amount) }}
                     {{ form_widget(form.amount) }}
                     <div class="form-error">
@@ -48,4 +47,26 @@
         </div>
     </div>
     <div id="conversionResultContainer"></div>
+{% endblock %}
+{% block local_js %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            function updateTime() {
+                let currentTimeElement = document.getElementById('current-time');
+                if (currentTimeElement) {
+                    let now = new Date();
+                    let day = String(now.getDate()).padStart(2, '0');
+                    let month = String(now.getMonth() + 1).padStart(2, '0'); // Месяцы от 0 до 11
+                    let year = now.getFullYear();
+                    let hours = String(now.getHours()).padStart(2, '0');
+                    let minutes = String(now.getMinutes()).padStart(2, '0');
+                    let seconds = String(now.getSeconds()).padStart(2, '0');
+
+                    currentTimeElement.textContent = `${day}.${month}.${year} ${hours}:${minutes}:${seconds}`;
+                }
+            }
+
+            setInterval(updateTime, 1000);
+        });
+    </script>
 {% endblock %}

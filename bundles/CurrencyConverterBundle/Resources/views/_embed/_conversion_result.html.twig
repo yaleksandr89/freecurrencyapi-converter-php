@@ -1,0 +1,34 @@
+{% trans_default_domain 'CurrencyConverterBundle' %}
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="base-currency ms-auto">
+                <span class="icon text-white-50 mr-2"><i class="fas fa-calendar-alt"></i></span>
+                <span class="text">
+                    {{ 'currencies.actions.converter.currencies_updated_at'|trans }} {{ updatedAt|date('H:i:s d.m.Y') }}
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="card mb-4 py-3 border-bottom-secondary">
+            <div class="card-body">
+                <span class="currency-label mr-2">{{ 'currencies.actions.converter.amount'|trans }}</span>
+                <code class="currency-amount">{{ amount }}{{ fromCurrency.code }}</code>
+            </div>
+        </div>
+        <div class="card mb-4 py-3 border-bottom-dark">
+            <div class="card-body">
+                <span class="currency-label mr-2">{{ 'currencies.actions.converter.converted_amount'|trans }}</span>
+                <code class="currency-amount">{{ convertedAmount }}{{ toCurrency.code }}</code>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer d-flex justify-content-end align-items-center">
+        <div class="base-currency">
+            <span class="icon text-white-50"><i class="fas fa-clock"></i></span>
+            <span class="mr-2">{{ 'currencies.actions.converter.current_time'|trans }}</span>
+            <span id="current-time" class="text">{{ "now"|date('d.m.Y H:i:s') }}</span>
+        </div>
+    </div>
+</div>

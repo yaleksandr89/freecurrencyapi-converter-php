@@ -127,6 +127,14 @@ select.form-control[multiple], select.form-control[size] {
     margin-right: 10px;
 }
 
+.currency-label {
+    font-size: 1.0em;
+}
+
+.currency-amount {
+    font-size: 1.8em;
+    vertical-align: sub;
+}
 
 @media (max-width: 768px) {
     .button-group {

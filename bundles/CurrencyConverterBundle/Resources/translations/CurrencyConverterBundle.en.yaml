@@ -74,13 +74,18 @@ currencies:
       server_error: 'Internal Server Error'
     historical_rates:
       data_is_empty: 'Currencies are not loaded. Please load them first'
-      base_currency: 'The CODE - base currency, against which the exchange rate of the selected currencies is calculated'
+      base_currency: 'The %code% - base currency, against which the exchange rate of the selected currencies is calculated'
       date: 'Date'
       currency: 'Currency'
       rate: 'Rate'
     converter:
       title: 'Currency Converter'
       missing_required_fields: 'Missing required fields'
+      wait_for_conversion: 'Please select currencies and amount to perform the conversion'
+      current_time: 'Current time:'
+      currencies_updated_at: 'Currencies updated in'
+      amount: 'Amount to convert:'
+      converted_amount: 'Converted amount:'
 
 # There are no transfer IDs, since the currencies are obtained dynamically and ID = NAME
 '[EUR] Euro': '[EUR] Euro'
