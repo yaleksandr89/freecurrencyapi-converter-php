@@ -45,55 +45,66 @@ class HistoricalRatesAction extends BaseAction
         );
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
             if (!$this->isAjaxRequest()) {
                 return $this->json([
                     'success' => false,
                     'message' => $this->trans('currencies.actions.update_currencies.forbidden'),
                 ], 403);
             }
+            if ($form->isValid()) {
+                $data = $form->getData();
 
-            $data = $form->getData();
+                // Данные для отправки в API
+                $date = $data['date'];
+                $baseCurrency = $data['base_currency']->code;
+                $currencies = array_map(static function ($currency) {
+                    return $currency->code; // Получаем коды валют
+                }, $data['currencies']);
 
-            // Данные для отправки в API
-            $date = $data['date'];
-            $baseCurrency = $data['base_currency']->code;
-            $currencies = array_map(static function ($currency) {
-                return $currency->code; // Получаем коды валют
-            }, $data['currencies']);
+                // Получение исторических курсов из API
+                try {
+                    $this->dateIsValid($date);
 
-            // Получение исторических курсов из API
-            try {
-                $this->dateIsValid($date);
+                    // Получение курсов из API
+                    $historicalRates = $this->currencyApiService->getHistoricalRates(
+                        date: $date->format('Y-m-d'),
+                        baseCurrency: $baseCurrency,
+                        currencies: $currencies,
+                    );
 
-                // Получение курсов из API
-                $historicalRates = $this->currencyApiService->getHistoricalRates(
-                    date: $date->format('Y-m-d'),
-                    baseCurrency: $baseCurrency,
-                    currencies: $currencies,
-                );
+                    $dataForTable = [];
+                    foreach ($historicalRates as $rates) {
+                        $dataForTable[] = [
+                            'date' => $date->format('d.m.Y'),
+                            'rates' => $rates,
+                        ];
+                    }
 
-                $dataForTable = [];
-                foreach ($historicalRates as $rates) {
-                    $dataForTable[] = [
-                        'date' => $date->format('d.m.Y'),
-                        'rates' => $rates,
-                    ];
+                    return $this->json([
+                        'success' => true,
+                        'html' => $this->renderView('@CurrencyConverter/_embed/_historical_rates_table.html.twig', [
+                            'historicalData' => $dataForTable,
+                            'baseCurrency' => $baseCurrency,
+                        ]),
+                    ]);
+                } catch (Exception $e) {
+                    $this->logger->error('Internal Server Error', ['method' => __METHOD__, 'message' => $e->getMessage(),]);
+
+                    return $this->json([
+                        'success' => false,
+                        'message' => $e->getMessage(),
+                    ], 400);
+                }
+            } else {
+                $errors = [];
+                foreach ($form->getErrors(true) as $error) {
+                    $errors[] = $this->trans($error->getMessage());
                 }
 
                 return $this->json([
-                    'success' => true,
-                    'html' => $this->renderView('@CurrencyConverter/_embed/_historical_rates_table.html.twig', [
-                        'historicalData' => $dataForTable,
-                        'baseCurrency' => $baseCurrency,
-                    ]),
-                ]);
-            } catch (Exception $e) {
-                $this->logger->error('Internal Server Error', ['method' => __METHOD__, 'message' => $e->getMessage(),]);
-
-                return $this->json([
                     'success' => false,
-                    'message' => $e->getMessage(),
+                    'errors' => $errors,
                 ], 400);
             }
         }

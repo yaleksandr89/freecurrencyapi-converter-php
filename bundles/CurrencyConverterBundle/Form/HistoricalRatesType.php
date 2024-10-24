@@ -55,7 +55,7 @@ class HistoricalRatesType extends AbstractType
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'currencies.form.submit.label',
-                'attr' => ['class' => 'btn btn-primary'],
+                'attr' => ['class' => 'btn btn-secondary btn-icon-split'],
             ]);
     }
 

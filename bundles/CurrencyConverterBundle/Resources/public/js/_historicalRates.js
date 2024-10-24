@@ -21,7 +21,7 @@ $(document).ready(function () {
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                loadErrorMessage(jqXHR.responseJSON.message);
+                loadErrorMessage(jqXHR.responseJSON);
             }
         });
     });
