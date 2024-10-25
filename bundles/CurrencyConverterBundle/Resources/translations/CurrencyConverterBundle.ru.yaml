@@ -53,7 +53,15 @@ currencies:
       label: 'Конвертировать'
   actions:
     dashboard:
-      title_update_at: 'Дата обновления'
+      no_currencies_loaded: 'Валюты не загружены. Пожалуйста, загрузите их для продолжения.'
+      load_currencies: 'Загрузить валюты'
+      update_frequency_currencies: 'Частота обновления валют'
+      currencies_list: 'Список валют'
+      currencies_list_desc: 'Просмотр и управление всеми доступными валютами.'
+      historical_rates: 'Исторические курсы'
+      historical_rates_desc: 'Доступ к историческим курсам валют.'
+      currency_converter: 'Конвертер валют'
+      currency_converter_desc: 'Конвертация сумм между различными валютами.'
     list:
       empty: 'Валюты не найдены'
       id: 'Ид'

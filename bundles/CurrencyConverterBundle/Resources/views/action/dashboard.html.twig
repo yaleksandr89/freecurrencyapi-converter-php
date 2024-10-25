@@ -8,18 +8,78 @@
         <div class="card-header py-3">
             <div class="d-flex justify-content-between align-items-center">
                 <h6 class="m-0 font-weight-bold text-primary">{{ 'dashboard'|trans }}</h6>
-                <div class="ml-auto d-flex">
-                    Вывести дату обновления валют...
-                </div>
+                {% if currenciesExist %}
+                    <div class="base-currency ms-auto">
+                        <span class="icon text-white-50 mr-2"><i class="fas fa-calendar-alt"></i></span>
+                        <span class="text">{{ 'currencies.actions.converter.currencies_updated_at'|trans }} {{ updatedAt|date('H:i:s d.m.Y') }}</span>
+                    </div>
+                {% endif %}
             </div>
         </div>
         <div class="card-body">
-            Foo...
+            {% if not currenciesExist %}
+                <div class="alert alert-warning text-center" role="alert">
+                    <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+                        {{ 'currencies.actions.dashboard.no_currencies_loaded'|trans }}
+                    </div>
+                    <a href="{{ path('list_currencies_action') }}" class="btn btn-secondary btn-icon-split">
+                        <span class="icon text-white-50"><i class="fas fa-arrow-right"></i></span>
+                        <span class="text">{{ 'go_to_list_currencies'|trans }}</span>
+                    </a>
+                </div>
+            {% else %}
+                <div class="mb-4">
+                    <p class="text-muted">
+                        {{ 'currencies.actions.dashboard.update_frequency_currencies'|trans }}:
+                        <code>foo</code>
+                    </p>
+                </div>
+                <div class="list-group">
+                    <a href="{{ path('list_currencies_action') }}" class="list-group-item list-group-item-action">
+                        <h6 class="mb-1 text-primary font-weight-bold">{{ 'currencies.actions.dashboard.currencies_list'|trans }}</h6>
+                        <p class="mb-0 text-muted">{{ 'currencies.actions.dashboard.currencies_list_desc'|trans }}</p>
+                    </a>
+                    <a href="{{ path('historical_rates_action') }}" class="list-group-item list-group-item-action">
+                        <h6 class="mb-1 text-primary font-weight-bold">{{ 'currencies.actions.dashboard.historical_rates'|trans }}</h6>
+                        <p class="mb-0 text-muted">{{ 'currencies.actions.dashboard.historical_rates_desc'|trans }}</p>
+                    </a>
+                    <a href="{{ path('converter_action') }}" class="list-group-item list-group-item-action">
+                        <h6 class="mb-1 text-primary font-weight-bold">{{ 'currencies.actions.dashboard.currency_converter'|trans }}</h6>
+                        <p class="mb-0 text-muted">{{ 'currencies.actions.dashboard.currency_converter_desc'|trans }}</p>
+                    </a>
+                </div>
+            {% endif %}
         </div>
         <div class="card-footer">
             <div class="d-flex justify-content-end align-items-center">
-                Вывести текущее время...
+                <div class="base-currency">
+                    <span class="icon text-white-50"><i class="fas fa-clock"></i></span>
+                    <span class="mr-2">{{ 'currencies.actions.converter.current_time'|trans }}</span>
+                    <span id="current-time" class="text">{{ "now"|date('d.m.Y H:i:s') }}</span>
+                </div>
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block local_js %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            function updateTime() {
+                let currentTimeElement = document.getElementById('current-time');
+                if (currentTimeElement) {
+                    let now = new Date();
+                    let day = String(now.getDate()).padStart(2, '0');
+                    let month = String(now.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+                    let year = now.getFullYear();
+                    let hours = String(now.getHours()).padStart(2, '0');
+                    let minutes = String(now.getMinutes()).padStart(2, '0');
+                    let seconds = String(now.getSeconds()).padStart(2, '0');
+
+                    currentTimeElement.textContent = `${day}.${month}.${year} ${hours}:${minutes}:${seconds}`;
+                }
+            }
+            setInterval(updateTime, 1000);
+        });
+    </script>
 {% endblock %}

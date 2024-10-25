@@ -53,7 +53,15 @@ currencies:
       label: 'Convert'
   actions:
     dashboard:
-      title_update_at: 'Update at'
+      no_currencies_loaded: 'No currencies loaded. Please load them to continue.'
+      load_currencies: 'Load Currencies'
+      update_frequency_currencies: 'Currency update frequency'
+      currencies_list: 'List of Currencies'
+      currencies_list_desc: 'View and manage all available currencies.'
+      historical_rates: 'Historical Rates'
+      historical_rates_desc: 'Access historical currency rates.'
+      currency_converter: 'Currency Converter'
+      currency_converter_desc: 'Convert amounts between different currencies.'
     list:
       empty: 'No currencies found'
       id: 'Id'

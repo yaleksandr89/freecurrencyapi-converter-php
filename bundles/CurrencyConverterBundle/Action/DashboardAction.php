@@ -8,8 +8,11 @@ class DashboardAction extends BaseAction
 {
     public function __invoke(): Response
     {
+        $currenciesExist = $this->currencyRepository->countCurrencies() > 0;
+
         return $this->render('@CurrencyConverter/action/dashboard.html.twig', [
-            'data' => 'data',
+            'updatedAt' => $this->currencyRepository->findLastUpdateAt(),
+            'currenciesExist' => $currenciesExist,
         ]);
     }
 }
