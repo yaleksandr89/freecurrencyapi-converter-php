@@ -4,7 +4,6 @@ namespace Bundles\CurrencyConverterBundle\Repository;
 
 use Bundles\CurrencyConverterBundle\DTO\CurrencyDTO;
 use Bundles\CurrencyConverterBundle\Entity\Currency;
-use DateTimeInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use InvalidArgumentException;
@@ -146,7 +145,7 @@ class CurrencyRepository extends ServiceEntityRepository
         return $currency ? $this->convertToDTO($currency) : null;
     }
 
-    public function findLastUpdateAt() : ?string
+    public function findLastUpdateAt(): ?string
     {
         return $this->createQueryBuilder('c')
             ->select('MAX(c.updatedAt) as lastUpdateAt')
