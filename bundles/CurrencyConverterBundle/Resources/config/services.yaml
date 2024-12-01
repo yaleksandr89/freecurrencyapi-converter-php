@@ -43,3 +43,14 @@ services:
   Bundles\CurrencyConverterBundle\Repository\CurrencyRepository:
     arguments:
       - '@doctrine'
+
+  Bundles\CurrencyConverterBundle\Repository\CurrencyUpdateScheduleRepository:
+    arguments:
+      - '@doctrine'
+
+  # Commands
+  Bundles\CurrencyConverterBundle\Command\:
+    resource: '../../Command'
+    autowire: true
+    autoconfigure: true
+    tags: ['console.command']
