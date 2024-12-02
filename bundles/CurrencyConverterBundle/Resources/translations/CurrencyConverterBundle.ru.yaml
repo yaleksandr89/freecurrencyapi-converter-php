@@ -62,6 +62,7 @@ currencies:
       historical_rates_desc: 'Доступ к историческим курсам валют.'
       currency_converter: 'Конвертер валют'
       currency_converter_desc: 'Конвертация сумм между различными валютами.'
+      next_update: 'Следующее обновление запланировано на:'
     list:
       empty: 'Валюты не найдены'
       id: 'Ид'

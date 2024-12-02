@@ -62,6 +62,7 @@ currencies:
       historical_rates_desc: 'Access historical currency rates.'
       currency_converter: 'Currency Converter'
       currency_converter_desc: 'Convert amounts between different currencies.'
+      next_update: 'Next update scheduled at:'
     list:
       empty: 'No currencies found'
       id: 'Id'

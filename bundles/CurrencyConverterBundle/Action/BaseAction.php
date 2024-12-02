@@ -3,7 +3,9 @@
 namespace Bundles\CurrencyConverterBundle\Action;
 
 use Bundles\CurrencyConverterBundle\Repository\CurrencyRepository;
+use Bundles\CurrencyConverterBundle\Repository\CurrencyUpdateScheduleRepository;
 use Bundles\CurrencyConverterBundle\Service\CurrencyApiService;
+use Bundles\CurrencyConverterBundle\Service\UpdateScheduleService;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Psr\Log\LoggerInterface;
@@ -21,6 +23,10 @@ abstract class BaseAction extends AbstractController
     protected CurrencyApiService $currencyApiService;
 
     protected CurrencyRepository $currencyRepository;
+
+    protected CurrencyUpdateScheduleRepository $scheduleRepository;
+
+    protected UpdateScheduleService $updateScheduleService;
 
     protected LoggerInterface $logger;
 
@@ -46,6 +52,18 @@ abstract class BaseAction extends AbstractController
     public function setLogger(LoggerInterface $logger): void
     {
         $this->logger = $logger;
+    }
+
+    #[Required]
+    public function setScheduleRepository(CurrencyUpdateScheduleRepository $scheduleRepository): void
+    {
+        $this->scheduleRepository = $scheduleRepository;
+    }
+
+    #[Required]
+    public function setUpdateScheduleService(UpdateScheduleService $updateScheduleService): void
+    {
+        $this->updateScheduleService = $updateScheduleService;
     }
 
     protected function trans(

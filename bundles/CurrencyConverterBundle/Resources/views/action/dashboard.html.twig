@@ -31,7 +31,11 @@
                 <div class="mb-4">
                     <p class="text-muted">
                         {{ 'currencies.actions.dashboard.update_frequency_currencies'|trans }}:
-                        <code>foo</code>
+                        <code>{{ updateFrequency }}</code>
+                    </p>
+                    <p class="text-muted">
+                        {{ 'currencies.actions.dashboard.next_update'|trans }}:
+                        <code>{{ nextUpdateAt|date('H:i:s d.m.Y') }}</code>
                     </p>
                 </div>
                 <div class="list-group">
