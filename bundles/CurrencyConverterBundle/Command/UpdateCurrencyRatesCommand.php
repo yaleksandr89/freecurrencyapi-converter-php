@@ -5,6 +5,7 @@ namespace Bundles\CurrencyConverterBundle\Command;
 use Bundles\CurrencyConverterBundle\Repository\CurrencyRepository;
 use Bundles\CurrencyConverterBundle\Repository\CurrencyUpdateScheduleRepository;
 use Bundles\CurrencyConverterBundle\Service\CurrencyApiService;
+use Bundles\CurrencyConverterBundle\Service\UpdateScheduleService;
 use DateTime;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -29,6 +30,8 @@ class UpdateCurrencyRatesCommand extends Command
 
     private CurrencyApiService $currencyApiService;
 
+    protected UpdateScheduleService $updateScheduleService;
+
     #[Required]
     public function setCurrencyRepository(CurrencyRepository $currencyRepository): void
     {
@@ -45,6 +48,12 @@ class UpdateCurrencyRatesCommand extends Command
     public function setCurrencyApiService(CurrencyApiService $currencyApiService): void
     {
         $this->currencyApiService = $currencyApiService;
+    }
+
+    #[Required]
+    public function setUpdateScheduleService(UpdateScheduleService $updateScheduleService): void
+    {
+        $this->updateScheduleService = $updateScheduleService;
     }
 
     /**
@@ -77,12 +86,12 @@ class UpdateCurrencyRatesCommand extends Command
         $this->currencyRepository->saveOrUpdateCurrencies($currenciesData, $currencyRates);
 
         // Обновляем расписание
-        $tomorrow = (clone $now)->modify('+1 day');
-        $this->scheduleRepository->updateScheduleDates($now, $tomorrow);
+        $nextUpdate = $this->updateScheduleService->calculateNextUpdate($now);
+        $this->scheduleRepository->updateScheduleDates($now, $nextUpdate);
 
         $output->writeln(
-            'Currency rates updated at ' .
-            $now->format('Y-m-d H:i:s')
+            'Currency rates updated at ' . $now->format('Y-m-d H:i:s') .
+            '. Next update scheduled at ' . $nextUpdate->format('Y-m-d H:i:s')
         );
 
         return Command::SUCCESS;
