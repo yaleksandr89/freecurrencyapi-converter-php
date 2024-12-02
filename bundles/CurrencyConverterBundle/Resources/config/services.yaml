@@ -23,6 +23,7 @@ services:
   currency_converter_bundle.action.converter:
     class: Bundles\CurrencyConverterBundle\Action\ConverterAction
 
+
   # Services
   # Или если задавать имя сервиса (например: currency_converter_bundle.service.currency_api),
   # то нужно прокинуть alias (пример ниже):
@@ -47,6 +48,11 @@ services:
   Bundles\CurrencyConverterBundle\Repository\CurrencyUpdateScheduleRepository:
     arguments:
       - '@doctrine'
+
+  Bundles\CurrencyConverterBundle\Service\UpdateScheduleService:
+    arguments:
+      $updateIntervalHours: 24
+
 
   # Commands
   Bundles\CurrencyConverterBundle\Command\:
