@@ -6,6 +6,9 @@ delete: 'Удалить'
 base_currency: 'является базовой валютой'
 go_to_list_currencies: 'Перейти к списку валют'
 
+update_frequency:
+  hours: "%count% час|%count% часа|%count% часов"
+
 currencies:
   label: 'Валюты'
   list: 'Список валют'

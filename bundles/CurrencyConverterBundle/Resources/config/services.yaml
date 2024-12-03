@@ -52,6 +52,7 @@ services:
   Bundles\CurrencyConverterBundle\Service\UpdateScheduleService:
     arguments:
       $updateIntervalHours: 24
+      $translator: '@translator'
 
 
   # Commands

@@ -6,6 +6,9 @@ delete: 'Delete'
 base_currency: 'is the base currency'
 go_to_list_currencies: 'Go to list of currencies'
 
+update_frequency:
+  hours: "%count% hour|%count% hours"
+
 currencies:
   label: 'Currencies'
   list: 'List of currencies'
