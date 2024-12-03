@@ -5,12 +5,11 @@ namespace Bundles\CurrencyConverterBundle\Service;
 
 use DateTime;
 
-class UpdateScheduleService
+readonly class UpdateScheduleService
 {
     public function __construct(
         private int $updateIntervalHours
     ) {
-        $this->updateIntervalHours = $updateIntervalHours;
     }
 
     public function getUpdateFrequency(): string
