@@ -9,10 +9,3 @@
 ---
 
 **Currency Converter** is a project for working with the currency exchange API. You can request exchange rates, perform conversions, and test functionality through ready-made tests.
-
----
-
-## Project structure
-
-```plain text
-```

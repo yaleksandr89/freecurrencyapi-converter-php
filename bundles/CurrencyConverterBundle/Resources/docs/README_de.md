@@ -10,9 +10,3 @@
 
 **Currency Converter** ist ein Projekt für die Arbeit mit der Währungsumtausch-API. Sie können Wechselkurse abfragen, die Konvertierung durchführen und die Funktionalität durch vorgefertigte Tests testen.
 
----
-
-## Projektstruktur
-
-```plain text
-```
